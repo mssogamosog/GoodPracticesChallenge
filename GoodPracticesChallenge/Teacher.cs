@@ -8,7 +8,7 @@ namespace GoodPracticesChallenge
 {
     public class Teacher : Person
     {
-        private Course Course { get; set; }
-        private List<Subject> Subjects { get; set; }
+        public Course Course { get; set; }
+        public List<Subject> Subjects { get; set; }
     }
 }

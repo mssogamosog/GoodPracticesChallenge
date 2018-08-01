@@ -2,7 +2,7 @@
 {
     public class Grade
     {
-        private int Id { get; set; }
-        private double Value { get; set; }
+        public int Id { get; set; }
+        public double Value { get; set; }
     }
 }

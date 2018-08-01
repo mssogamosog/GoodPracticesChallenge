@@ -4,9 +4,9 @@ namespace GoodPracticesChallenge
 {
     public class Course
     {
-        private int Id { get; set; }
-        private List<Student> Students { get; set; }
-        private Student Headman { get; set; }
-        private List<Subject> Subjects { get; set; }
+        public int Id { get; set; }
+        public List<Student> Students { get; set; }
+        public Student Headman { get; set; }
+        public List<Subject> Subjects { get; set; }
     }
 }

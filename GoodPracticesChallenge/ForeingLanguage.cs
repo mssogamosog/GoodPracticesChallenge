@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GoodPracticesChallenge
 {
-    class ForeingLanguage : Subject
+    public class ForeingLanguage : Subject
     {
-        private ConcreteLanguage ConcreteLanguage { get; set; }
+        public ConcreteLanguage ConcreteLanguage { get; set; }
     }
 }
