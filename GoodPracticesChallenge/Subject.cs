@@ -11,5 +11,16 @@ namespace GoodPracticesChallenge
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Teacher> Teachers { get; set; }
+
+        public Subject(string name, string description)
+        {
+
+            this.Name = name;
+            this.Description = description;
+        }
+
+       
     }
 }

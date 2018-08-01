@@ -3,6 +3,8 @@
     public enum ConcreteLanguage
     {
         ENGLISH = 1,
-        fRENCH = 2
+        FRENCH = 2,
+        SPANISH = 3,
+        PORTUGUESE = 4
     }
 }

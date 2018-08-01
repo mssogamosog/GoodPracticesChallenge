@@ -69,9 +69,9 @@
     <Compile Include="DataBaseContext.cs" />
     <Compile Include="ForeingLanguage.cs" />
     <Compile Include="Grade.cs" />
-    <Compile Include="Migrations\201808012015269_CreateDB.cs" />
-    <Compile Include="Migrations\201808012015269_CreateDB.Designer.cs">
-      <DependentUpon>201808012015269_CreateDB.cs</DependentUpon>
+    <Compile Include="Migrations\201808012240574_CreateDB.cs" />
+    <Compile Include="Migrations\201808012240574_CreateDB.Designer.cs">
+      <DependentUpon>201808012240574_CreateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -98,8 +98,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808012015269_CreateDB.resx">
-      <DependentUpon>201808012015269_CreateDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808012240574_CreateDB.resx">
+      <DependentUpon>201808012240574_CreateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
