@@ -10,10 +10,10 @@ namespace GoodPracticesChallenge
     {
         static void Main(string[] args)
         {
-            Subject subject = new Subject("Calculus", "Math Stuff");
-            ForeingLanguage foreingLanguage = new ForeingLanguage(ConcreteLanguage.ENGLISH, ConcreteLanguage.ENGLISH.ToString(),"This is English");
-            Student student = new Student("Pedro", foreingLanguage);
-            Course course = new Course("Curso 1",student);
+            //Subject subject = new Subject("Calculus", "Math Stuff");
+            //ForeingLanguage foreingLanguage = new ForeingLanguage(ConcreteLanguage.ENGLISH, ConcreteLanguage.ENGLISH.ToString(),"This is English");
+           // Student student = new Student("Pedro", foreingLanguage);
+            //Course course = new Course("Curso 1",student);
             // using (DataBaseContext db = new DataBaseContext())
             //   {
             //db.Subjects.Add(subject);
@@ -23,11 +23,12 @@ namespace GoodPracticesChallenge
             CourseDAO c = new CourseDAO();
             //c.CreateCourse("Japanse Culture", 1);
             c.CoursesList();
-           
-                
-
-
-
+            SubjectDAO d = new SubjectDAO();
+            d.SubjectList();
+            d.CreateSubject("Math","Some math");
+            ForeingLanguageDAO f = new ForeingLanguageDAO();
+            f.CreateForeingLanguage(ConcreteLanguage.PORTUGUESE, "Portuguese", "This is a portuguese subject");
+            f.ForeingLanguageList();
         }
     }
 }
