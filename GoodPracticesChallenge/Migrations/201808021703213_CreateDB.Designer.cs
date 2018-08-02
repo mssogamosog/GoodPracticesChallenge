@@ -13,7 +13,7 @@ namespace GoodPracticesChallenge.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201808012240574_CreateDB"; }
+            get { return "201808021703213_CreateDB"; }
         }
         
         string IMigrationMetadata.Source

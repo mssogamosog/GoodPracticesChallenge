@@ -12,6 +12,7 @@ namespace GoodPracticesChallenge.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
                         Headman_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
