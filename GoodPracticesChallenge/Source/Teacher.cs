@@ -17,8 +17,12 @@ namespace GoodPracticesChallenge
             this.Course = course;
             this.Name = name;
         }
+        public Teacher(string name) : base(name)
+        {
+            this.Name = name;
+        }
 
-        
+
         public Course Course { get; set; }
         public List<Subject> Subjects { get; set; }
     }

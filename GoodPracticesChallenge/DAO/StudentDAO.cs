@@ -14,6 +14,7 @@ namespace GoodPracticesChallenge
             {
                 Student student = new Student(name);
                 db.Students.Add(student);
+                db.SaveChanges();
             }
         }
         public void DeleteStudent(int studentId)
@@ -24,7 +25,30 @@ namespace GoodPracticesChallenge
                 if (student != null)
                 {
                     db.Students.Remove(student);
+                    db.SaveChanges();
                 }
+                
+            }
+        }
+        public void AsignForeingLanguage(int studentId ,ForeingLanguage foreingLanguage)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Student student = db.Students.Find(studentId);
+                
+                if (student != null)
+                {
+                    student.ForeingLanguage = foreingLanguage;
+                    db.SaveChanges();
+                }
+
+            }
+
+        }
+        public void GetHeadmans()
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
                 
             }
         }

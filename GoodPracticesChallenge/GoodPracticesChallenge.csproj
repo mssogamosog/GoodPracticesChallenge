@@ -64,26 +64,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConcreteLanguage.cs" />
-    <Compile Include="Course.cs" />
-    <Compile Include="CourseDAO.cs" />
-    <Compile Include="DataBaseContext.cs" />
-    <Compile Include="ForeingLanguage.cs" />
-    <Compile Include="ForeingLanguageDAO.cs" />
-    <Compile Include="Grade.cs" />
+    <Compile Include="Source\ConcreteLanguage.cs" />
+    <Compile Include="Source\Course.cs" />
+    <Compile Include="DAO\CourseDAO.cs" />
+    <Compile Include="Source\DataBaseContext.cs" />
+    <Compile Include="Source\ForeingLanguage.cs" />
+    <Compile Include="DAO\ForeingLanguageDAO.cs" />
+    <Compile Include="Source\Grade.cs" />
     <Compile Include="Migrations\201808021703213_CreateDB.cs" />
     <Compile Include="Migrations\201808021703213_CreateDB.Designer.cs">
       <DependentUpon>201808021703213_CreateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Student.cs" />
-    <Compile Include="StudentDAO.cs" />
-    <Compile Include="Subject.cs" />
-    <Compile Include="Person.cs" />
-    <Compile Include="SubjectDAO.cs" />
-    <Compile Include="Teacher.cs" />
+    <Compile Include="Source\Student.cs" />
+    <Compile Include="DAO\StudentDAO.cs" />
+    <Compile Include="Source\Subject.cs" />
+    <Compile Include="Source\Person.cs" />
+    <Compile Include="DAO\SubjectDAO.cs" />
+    <Compile Include="Source\Teacher.cs" />
+    <Compile Include="DAO\TeacherDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -106,5 +107,6 @@
       <DependentUpon>201808021703213_CreateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

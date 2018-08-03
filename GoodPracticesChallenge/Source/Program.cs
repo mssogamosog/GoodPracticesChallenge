@@ -21,14 +21,19 @@ namespace GoodPracticesChallenge
             //      db.Courses.Add(course);
             //       db.SaveChanges();
             CourseDAO c = new CourseDAO();
-            //c.CreateCourse("Japanse Culture", 1);
-            c.CoursesList();
-            SubjectDAO d = new SubjectDAO();
-            d.SubjectList();
-            d.CreateSubject("Math","Some math");
-            ForeingLanguageDAO f = new ForeingLanguageDAO();
-            f.CreateForeingLanguage(ConcreteLanguage.PORTUGUESE, "Portuguese", "This is a portuguese subject");
-            f.ForeingLanguageList();
+            ////c.CreateCourse("Japanse Culture", 1);
+            //c.CoursesList();
+            //SubjectDAO d = new SubjectDAO();
+            //d.SubjectList();
+            //d.CreateSubject("Math","Some math");
+            //ForeingLanguageDAO f = new ForeingLanguageDAO();
+            //f.CreateForeingLanguage(ConcreteLanguage.PORTUGUESE, "Portuguese", "This is a portuguese subject");
+            //f.ForeingLanguageList();
+            TeacherDAO t = new TeacherDAO();
+            //t.CreateTeacher("Teacher 1");
+            t.AsingCourse(1, 2);
+            Console.WriteLine(t.CoursesTeacher(1));
+
         }
     }
 }
