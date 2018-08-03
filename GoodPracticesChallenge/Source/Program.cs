@@ -34,7 +34,11 @@ namespace GoodPracticesChallenge
             //t.AsingCourse(1, 2);
             //Console.WriteLine(t.CoursesTeacher(1));
             StudentDAO s = new StudentDAO();
-            s.GetHeadmans();
+            //s.GetHeadmans();
+            //CourseDAO c2 = new CourseDAO();
+            //c2.AddSubjectsToCourse(2,4);
+            TeacherDAO t = new TeacherDAO();
+            t.AddTeachersToSubject(1, 2);
         }
     }
 }

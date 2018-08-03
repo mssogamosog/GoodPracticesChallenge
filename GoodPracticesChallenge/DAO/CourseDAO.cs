@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
@@ -60,6 +61,32 @@ namespace GoodPracticesChallenge
                     Console.WriteLine(course.ToString());
                 }
             }
+        }
+
+        public void AddSubjectsToCourse(int courseId, int subjectId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Course course = db.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).First();
+                Subject subject = db.Subjects.Find(subjectId);
+                if (course != null && subject != null)
+                {
+                    if (!course.Subjects.Contains(subject))
+                    {
+                        course.Subjects.Add(subject);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Console.WriteLine("la materia ya esta en el curso");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Id del curso o materia no encontrados");
+                }
+            }
+
         }
     }
 }

@@ -31,13 +31,13 @@ namespace GoodPracticesChallenge
                 
             }
         }
-        public void AsingForeingLanguage(int studentId ,ForeingLanguage foreingLanguage)
+        public void AsingForeingLanguage(int studentId ,int foreingLanguageId)
         {
             using (DataBaseContext db = new DataBaseContext())
             {
                 Student student = db.Students.Find(studentId);
-                
-                if (student != null)
+                ForeingLanguage foreingLanguage = db.ForeingLanguages.Find(foreingLanguageId);
+                if (student != null && foreingLanguage != null )
                 {
                     student.ForeingLanguage = foreingLanguage;
                     db.SaveChanges();

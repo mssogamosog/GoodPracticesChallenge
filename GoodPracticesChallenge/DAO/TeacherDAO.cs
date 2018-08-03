@@ -42,6 +42,31 @@ namespace GoodPracticesChallenge
             }
 
         }
-        
+        public void AddTeachersToSubject(int teacherId, int subjectId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Teacher teacher = db.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).First();
+                Subject subject = db.Subjects.Find(subjectId);
+                if (teacher != null && subject != null)
+                {
+                    if (!teacher.Subjects.Contains(subject))
+                    {
+                        teacher.Subjects.Add(subject);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Console.WriteLine("la materia ya esta signada");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Id del profesor o materia no encontrados");
+                }
+            }
+
+        }
+
     }
 }
