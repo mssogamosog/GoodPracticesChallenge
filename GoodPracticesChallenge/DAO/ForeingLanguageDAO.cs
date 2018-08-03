@@ -8,7 +8,7 @@ namespace GoodPracticesChallenge
 {
     class ForeingLanguageDAO
     {
-        public void CreateForeingLanguage(ConcreteLanguage concreteLanguage,String name, string description)
+        public void CreateForeingLanguage(ConcreteLanguage concreteLanguage,string name, string description)
         {
 
             using (DataBaseContext db = new DataBaseContext())

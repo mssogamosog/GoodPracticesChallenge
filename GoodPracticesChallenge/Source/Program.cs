@@ -29,11 +29,12 @@ namespace GoodPracticesChallenge
             //ForeingLanguageDAO f = new ForeingLanguageDAO();
             //f.CreateForeingLanguage(ConcreteLanguage.PORTUGUESE, "Portuguese", "This is a portuguese subject");
             //f.ForeingLanguageList();
-            TeacherDAO t = new TeacherDAO();
-            //t.CreateTeacher("Teacher 1");
-            t.AsingCourse(1, 2);
-            Console.WriteLine(t.CoursesTeacher(1));
-
+            //TeacherDAO t = new TeacherDAO();
+            ////t.CreateTeacher("Teacher 1");
+            //t.AsingCourse(1, 2);
+            //Console.WriteLine(t.CoursesTeacher(1));
+            StudentDAO s = new StudentDAO();
+            s.GetHeadmans();
         }
     }
 }

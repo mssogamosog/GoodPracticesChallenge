@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
@@ -30,7 +31,7 @@ namespace GoodPracticesChallenge
                 
             }
         }
-        public void AsignForeingLanguage(int studentId ,ForeingLanguage foreingLanguage)
+        public void AsingForeingLanguage(int studentId ,ForeingLanguage foreingLanguage)
         {
             using (DataBaseContext db = new DataBaseContext())
             {
@@ -49,7 +50,11 @@ namespace GoodPracticesChallenge
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                
+                var courses = db.Courses.Include(s => s.Headman);
+                foreach (var course in courses)
+                {
+                    Console.WriteLine("[" + course.Headman.Name + " ," + course.Name + "]");
+                }
             }
         }
     }

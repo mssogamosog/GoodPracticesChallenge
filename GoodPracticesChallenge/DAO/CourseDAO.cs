@@ -38,10 +38,14 @@ namespace GoodPracticesChallenge
             {
                 Course result = db.Courses.Find(courseId);
                 Student student = db.Students.Find(headmanId);
-                if (result != null)
+                if (result != null && student != null)
                 {
                     result.Headman = student;
                     db.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Headman Id o Curso Id invalidos");
                 }
 
             }
