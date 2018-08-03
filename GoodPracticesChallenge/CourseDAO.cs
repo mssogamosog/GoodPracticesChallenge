@@ -32,6 +32,20 @@ namespace GoodPracticesChallenge
 
             }
         }
+        public void ChangeHeadman(int courseId, int headmanId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Course result = db.Courses.Find(courseId);
+                Student student = db.Students.Find(headmanId);
+                if (result != null)
+                {
+                    result.Headman = student;
+                    db.SaveChanges();
+                }
+
+            }
+        }
         public void CoursesList()
         {
             using (DataBaseContext db = new DataBaseContext())

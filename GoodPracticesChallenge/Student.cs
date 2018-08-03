@@ -19,7 +19,7 @@ namespace GoodPracticesChallenge
             this.Name = Name;
         }
         public Student() 
-        {    
+        {     
         }
 
         public ForeingLanguage ForeingLanguage { get; set; }
