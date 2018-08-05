@@ -31,7 +31,7 @@ namespace GoodPracticesChallenge
                 
             }
         }
-        public void AsingForeingLanguage(int studentId ,int foreingLanguageId)
+        public void AssingForeingLanguage(int studentId ,int foreingLanguageId)
         {
             using (DataBaseContext db = new DataBaseContext())
             {

@@ -45,7 +45,7 @@ namespace GoodPracticesChallenge
                 }
                 else
                 {
-                    Console.WriteLine("Id Invalido");
+                    Console.WriteLine("Id doesn't match");
                 }
                 
             }

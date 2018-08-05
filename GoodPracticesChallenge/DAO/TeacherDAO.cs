@@ -18,7 +18,7 @@ namespace GoodPracticesChallenge
                 db.SaveChanges();
             }
         }
-        public void AsingCourse(int teacherId,int courseId )
+        public void AssingCourse(int teacherId,int courseId )
         {
             using (DataBaseContext db = new DataBaseContext())
             {
@@ -37,7 +37,7 @@ namespace GoodPracticesChallenge
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                Teacher teacher = db.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).First();
+                Teacher teacher = db.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
                 return "[" + teacher.Course.Name + " ," + teacher.Name + "]";
             }
 
@@ -46,7 +46,7 @@ namespace GoodPracticesChallenge
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                Teacher teacher = db.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).First();
+                Teacher teacher = db.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
                 Subject subject = db.Subjects.Find(subjectId);
                 if (teacher != null && subject != null)
                 {
@@ -57,12 +57,12 @@ namespace GoodPracticesChallenge
                     }
                     else
                     {
-                        Console.WriteLine("la materia ya esta signada");
+                        Console.WriteLine("Subject already assigned");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Id del profesor o materia no encontrados");
+                    Console.WriteLine("Ids don't match");
                 }
             }
 

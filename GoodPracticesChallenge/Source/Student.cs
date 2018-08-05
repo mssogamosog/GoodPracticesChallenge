@@ -21,11 +21,7 @@ namespace GoodPracticesChallenge
         public Student() 
         {     
         }
-
         public ForeingLanguage ForeingLanguage { get; set; }
-        public Dictionary<Subject,Grade>  FirstPartialGrade  { get; set; }
-        public Dictionary<Subject, Grade> SecondPartialGrade { get; set; }
-        public Dictionary<Subject, Grade> ThirdPartialGrade { get; set; }
-        public Dictionary<Subject, Grade> FinalGrade { get; set; }
+        public List<Grade> Grades { get; set; }
     }
 }

@@ -21,11 +21,13 @@ namespace GoodPracticesChallenge
                 
                 if (headman == null)
                 {
-                    Console.WriteLine("Id De Estudiante No Encontrado");
+                    Console.WriteLine("Student Id not Found");
                 }
                 else
                 {
                     Course course = new Course(name, headman);
+                    course.Students = new List<Student>();
+                    course.Students.Add(headman);
                     db.Courses.Add(course);
                     db.SaveChanges();
                 }            
@@ -46,7 +48,7 @@ namespace GoodPracticesChallenge
                 }
                 else
                 {
-                    Console.WriteLine("Headman Id o Curso Id invalidos");
+                    Console.WriteLine("Headman Id or Course Id don't match");
                 }
 
             }
@@ -67,7 +69,7 @@ namespace GoodPracticesChallenge
         {
             using (DataBaseContext db = new DataBaseContext())
             {
-                Course course = db.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).First();
+                Course course = db.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).FirstOrDefault();
                 Subject subject = db.Subjects.Find(subjectId);
                 if (course != null && subject != null)
                 {
@@ -78,15 +80,41 @@ namespace GoodPracticesChallenge
                     }
                     else
                     {
-                        Console.WriteLine("la materia ya esta en el curso");
+                        Console.WriteLine("The subject is alrady in the course");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Id del curso o materia no encontrados");
+                    Console.WriteLine("Ids don't match");
                 }
             }
 
+        }
+        public void AddStudentsToCourse(int courseId, int studentId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Course course = db.Courses.Include(c => c.Students).Where(c => c.Id == courseId).FirstOrDefault();
+                Student student = db.Students.Find(studentId);
+                if (course != null && student != null)
+                {
+                    if (course.Students.Count() >= 30)
+                    {
+                        Console.WriteLine("Course with 30 students already");
+                    }
+                    else
+                    {
+                        course.Students.Add(student);
+                        db.SaveChanges();
+                    }
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Student or Course  Id don't match");
+                }
+
+            }
         }
     }
 }
