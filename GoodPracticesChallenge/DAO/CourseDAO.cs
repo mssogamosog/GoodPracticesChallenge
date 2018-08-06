@@ -80,7 +80,7 @@ namespace GoodPracticesChallenge
                     }
                     else
                     {
-                        Console.WriteLine("The subject is alrady in the course");
+                        Console.WriteLine("The subject is already in the course");
                     }
                 }
                 else

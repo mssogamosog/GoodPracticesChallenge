@@ -57,30 +57,30 @@ namespace GoodPracticesChallenge.Source
                 Grade finalGrade = grades.Where(g => g.Period == Period.FINAL).FirstOrDefault();
                 if (finalGrade != null)
                 {
-                    double finalValue = 0;
-                    foreach (var grade in grades)
-                    {
-                        if (grade.Period == Period.FIRST) finalValue = finalValue + (grade.Value * 0.3);
-                        if (grade.Period == Period.SECOND) finalValue = finalValue + (grade.Value * 0.3);
-                        if (grade.Period == Period.THIRD) finalValue = finalValue + (grade.Value * 0.4);
-                    }
+                    double finalValue = CalculateFinalValue(grades);
                     finalGrade.Value = finalValue;
                     db.SaveChanges();
                 }
                 else
                 {
-                    double finalValue = 0;
-                    foreach (var grade in grades)
-                    {
-                        if (grade.Period == Period.FIRST) finalValue = finalValue + (grade.Value * 0.3);
-                        if (grade.Period == Period.SECOND) finalValue = finalValue + (grade.Value * 0.3);
-                        if (grade.Period == Period.THIRD) finalValue = finalValue + (grade.Value * 0.4);
-                    }
+                    double finalValue   = CalculateFinalValue(grades);
                     this.AddGradeToStudent(studentId,subjectId,Period.FINAL,finalValue);
                 }
                 
             }
            
+        }
+
+        private double CalculateFinalValue(List<Grade> grades)
+        {
+            double finalValue = 0;
+            foreach (var grade in grades)
+            {
+                if (grade.Period == Period.FIRST) finalValue = finalValue + (grade.Value * 0.3);
+                if (grade.Period == Period.SECOND) finalValue = finalValue + (grade.Value * 0.3);
+                if (grade.Period == Period.THIRD) finalValue = finalValue + (grade.Value * 0.4);
+            }
+            return finalValue;
         }
 
     }

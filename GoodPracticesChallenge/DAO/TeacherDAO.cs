@@ -18,6 +18,33 @@ namespace GoodPracticesChallenge
                 db.SaveChanges();
             }
         }
+        public void DeleteTeacher(int teacherId)
+        {
+            using (DataBaseContext db = new DataBaseContext())
+            {
+                Teacher teacher = db.Teachers.Where(t => t.Id == teacherId).FirstOrDefault();
+                if (teacher == null)
+                {
+                    Console.WriteLine("The teacher doesn't exists.");
+                }
+                else
+                {
+                    try
+                    {
+                        db.Teachers.Remove(teacher);
+                        db.SaveChanges();
+                        Console.WriteLine("The Teacher  deleted satisfactorily");
+
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                    {
+                        Console.WriteLine("The Teacher can't be deleted, there are references to it");
+                    }
+
+                }
+            }
+            
+        }
         public void AssingCourse(int teacherId,int courseId )
         {
             using (DataBaseContext db = new DataBaseContext())
@@ -62,7 +89,7 @@ namespace GoodPracticesChallenge
                 }
                 else
                 {
-                    Console.WriteLine("Ids don't match");
+                    Console.WriteLine("Id");
                 }
             }
 

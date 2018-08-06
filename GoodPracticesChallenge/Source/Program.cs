@@ -24,7 +24,9 @@ namespace GoodPracticesChallenge
             CourseDAO c = new CourseDAO();
             StudentDAO s = new StudentDAO();
             GradeDAO g = new GradeDAO();
-            g.AddGradeToStudent(1, 2, Period.FIRST, 95.0);
+            //g.AddGradeToStudent(4, 1, Period.THIRD, 99.0);
+            //s.ListStudentGrades(4);
+            //s.DeleteStudent(30);
             //s.CreateStudent("Shamisiel31" );
 
 
@@ -39,9 +41,13 @@ namespace GoodPracticesChallenge
             //ForeingLanguageDAO f = new ForeingLanguageDAO();
             //f.CreateForeingLanguage(ConcreteLanguage.SPANISH, "Spanish", "this is a spanish subject");
             //f.ForeingLanguageList();
-            // TeacherDAO t = new TeacherDAO();
-            // t.CreateTeacher("teacher 3");
-            //t.AssingCourse(2, 1);
+            TeacherDAO t = new TeacherDAO();
+            //t.CreateTeacher("teacher 3");
+            t.AssingCourse(1, 3);
+            s.AssingForeingLanguage(4,3);
+            t.AddTeachersToSubject(1,2);
+            c.AddSubjectsToCourse(3, 2);
+            s.GetGradesByTeacher(1);
             //for (int i = 0; i < 32; i++)
             //{
             //    c.AddStudentsToCourse(2, i + 40);
