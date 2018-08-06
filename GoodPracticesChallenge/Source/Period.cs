@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodPracticesChallenge
+namespace GoodPracticesChallenge.Source
 {
-    class Program
+    public enum Period
     {
-        static void Main(string[] args)
-        {
-        }
+        FIRST,
+        SECOND,
+        THIRD,
+        FINAL
     }
 }
