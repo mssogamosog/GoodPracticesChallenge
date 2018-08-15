@@ -10,8 +10,7 @@ namespace GoodPracticesChallenge
     public class CourseDAO
     {
         public void CreateCourse(String name, int headmanId)
-        {
-            
+        {   
             using (DataBaseContext db = new DataBaseContext())
             {
                 //db.Subjects.Add(subject);
@@ -31,8 +30,6 @@ namespace GoodPracticesChallenge
                     db.Courses.Add(course);
                     db.SaveChanges();
                 }            
-                
-
             }
         }
         public void ChangeHeadman(int courseId, int headmanId)

@@ -9,46 +9,65 @@ namespace GoodPracticesChallenge
 {
     class SubjectDAO
     {
-        public void CreateSubject(String name, string description)
+		IDataBaseContext _dataBaseContext;
+
+		public SubjectDAO(IDataBaseContext dataBaseContext)
+		{
+			_dataBaseContext = dataBaseContext;
+		}
+
+		public void CreateSubject(string name, string description)
         {
 
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Subject subject = new Subject(name, description);
-                db.Subjects.Add(subject);
-                db.SaveChanges();
-            }
+			using (_dataBaseContext)
+			{
+				Subject subject = new Subject(name, description);
+
+				_dataBaseContext.Subjects.Add(subject);
+				_dataBaseContext.SaveChanges();
+			}
         }
-        public void SubjectList()
+        public List<Subject> SubjectList()
         {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                var subjects = db.Subjects.ToList();
-                foreach (var subject in subjects)
-                {
-                    Console.WriteLine(subject.ToString());
-                }
-            }
+			using (_dataBaseContext)
+			{
+				var subjects = _dataBaseContext.Subjects.ToList();
+				foreach (var subject in subjects)
+				{
+					Console.WriteLine(subject.ToString());
+				}
+				return subjects;
+			}
+			
         }
-        public void SubjectsByCourse(int courseId)
+        public List<Subject> SubjectsByCourse(int courseId)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext)
             {
-                Course course = db.Courses.Find(courseId);
-                if (course != null)
-                {
-                    var subjects = db.Courses.Include( s => s.Subjects ).Where( c => c.Id == courseId);
-                    foreach (var subject in subjects)
-                    {
-                        Console.WriteLine(subject.ToString() + " ," + "[" + course.Name +  "]");
-                    }
-                }
+				var courses = _dataBaseContext.Courses.Include(c => c.Subjects).Where(c => c.Id == courseId);
+				List<Subject> subjects = new List<Subject>();
+				if (courses != null)
+				{
+					
+					foreach (var course in courses)
+					{
+						foreach (var subject in course.Subjects)
+						{
+							subjects.Add(subject);
+							Console.WriteLine(subject.ToString() + " ," + "[" + course.Name + "]");
+						}
+						return subjects;
+					}
+					
+				}
                 else
                 {
-                    Console.WriteLine("Id doesn't match");
+					Console.WriteLine("Id doesn't match");
+					return subjects;
+
                 }
-                
-            }
+				return subjects;
+			}
         }
     }
 }
