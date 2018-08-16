@@ -5,16 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace GoodPracticesChallenge.Source
+namespace GoodPracticesChallenge
 {
-    public class GradeDAO
-    {
-        public void AddGradeToStudent(int studentId,int subjectId,Period period,double value)
+    public class GradeDAO : IGradeDAO
+	{
+		IGradeBusiness _gradeBusiness;
+
+		IDataBaseContext _dataBaseContext;
+
+		public GradeDAO( IDataBaseContext dataBaseContext, IGradeBusiness gradeBusiness)
+		{
+			_gradeBusiness = gradeBusiness;
+			_dataBaseContext = dataBaseContext;
+		}
+
+		public void Create(int studentId,int subjectId,Period period,double value)
         {
-                using (DataBaseContext db = new DataBaseContext())
+                using (_dataBaseContext)
                 {
-                    Student student = db.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
-                    Subject subject = db.Subjects.Find(subjectId);
+                    Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
+                    Subject subject = _dataBaseContext.Subjects.Find(subjectId);
                     if (student != null && subject != null)
                     {
 
@@ -24,15 +34,15 @@ namespace GoodPracticesChallenge.Source
                         {
                             currentGrade.Value = value;
                             Console.WriteLine("Grade exists");
-                            db.SaveChanges();
+                            _dataBaseContext.SaveChanges();
                         }
                         else
                         {
                             student.Grades.Add(grade);
-                            db.SaveChanges();
+                            _dataBaseContext.SaveChanges();
                             Console.WriteLine("Grade Added");
                         }
-                        if(period != Period.FINAL) this.ModifyFinalGrade(studentId, subjectId);
+                        if(period != Period.FINAL) _gradeBusiness.UpdateFinal(student, subject);
 
                     }
                     else
@@ -46,42 +56,30 @@ namespace GoodPracticesChallenge.Source
 
         }
 
-        private void ModifyFinalGrade(int studentId, int subjectId)
-        {
+		public void Update(Grade finalGrade)
+		{
+			using (_dataBaseContext)
+			{
+				_dataBaseContext.SaveChanges();
+			}
+		}
 
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Student student = db.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
-                Subject subject = db.Subjects.Find(subjectId);
-                var grades = student.Grades.Where(g => g.Subject == subject).ToList();
-                Grade finalGrade = grades.Where(g => g.Period == Period.FINAL).FirstOrDefault();
-                if (finalGrade != null)
-                {
-                    double finalValue = CalculateFinalValue(grades);
-                    finalGrade.Value = finalValue;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    double finalValue   = CalculateFinalValue(grades);
-                    this.AddGradeToStudent(studentId,subjectId,Period.FINAL,finalValue);
-                }
-                
-            }
-           
-        }
+		public void GradesByStudent(int studentId)
+		{
+			using (_dataBaseContext )
+			{
+				Student student = _dataBaseContext.Students.Include(g => g.Grades.Select(s => s.Subject)).Where(s => s.Id == studentId).FirstOrDefault();
+				if (student != null)
+				{
+					var grades = student.Grades.OrderBy(g => g.Period).OrderBy(g => g.Subject.Name);
+					Console.WriteLine(student.Name + " Grades");
+					foreach (var grade in grades)
+					{
+						Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
+					}
+				}
 
-        private double CalculateFinalValue(List<Grade> grades)
-        {
-            double finalValue = 0;
-            foreach (var grade in grades)
-            {
-                if (grade.Period == Period.FIRST) finalValue = finalValue + (grade.Value * 0.3);
-                if (grade.Period == Period.SECOND) finalValue = finalValue + (grade.Value * 0.3);
-                if (grade.Period == Period.THIRD) finalValue = finalValue + (grade.Value * 0.4);
-            }
-            return finalValue;
-        }
-
-    }
+			}
+		}
+	}
 }

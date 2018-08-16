@@ -7,22 +7,30 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-    public class TeacherDAO
-    {
-        public void CreateTeacher(string name)
+    public class TeacherDAO : ITeacherDAO
+	{
+		IDataBaseContext _dataBaseContext;
+
+		public TeacherDAO(IDataBaseContext dataBaseContext)
+		{
+			_dataBaseContext = dataBaseContext;
+		}
+
+		public void Create(string name)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using ( _dataBaseContext )
             {
                 Teacher teacher = new Teacher(name);
-                db.Teachers.Add(teacher);
-                db.SaveChanges();
+                _dataBaseContext.Teachers.Add(teacher);
+                _dataBaseContext.SaveChanges();
             }
         }
-        public void DeleteTeacher(int teacherId)
+
+        public void Delete(int teacherId)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext )
             {
-                Teacher teacher = db.Teachers.Where(t => t.Id == teacherId).FirstOrDefault();
+                Teacher teacher = _dataBaseContext.Teachers.Where(t => t.Id == teacherId).FirstOrDefault();
                 if (teacher == null)
                 {
                     Console.WriteLine("The teacher doesn't exists.");
@@ -31,8 +39,8 @@ namespace GoodPracticesChallenge
                 {
                     try
                     {
-                        db.Teachers.Remove(teacher);
-                        db.SaveChanges();
+                        _dataBaseContext.Teachers.Remove(teacher);
+                        _dataBaseContext.SaveChanges();
                         Console.WriteLine("The Teacher  deleted satisfactorily");
 
                     }
@@ -45,55 +53,73 @@ namespace GoodPracticesChallenge
             }
             
         }
-        public void AssingCourse(int teacherId,int courseId )
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Teacher teacher = db.Teachers.Find(teacherId);
-                Course course = db.Courses.Find(courseId);
-                if (teacher != null && course != null)
-                {
-                    teacher.Course = course;
-                    db.SaveChanges();
-                }
 
-            }
+		public List<Teacher> List()
+		{
+			using (_dataBaseContext)
+			{
+				var teachers = _dataBaseContext.Teachers.ToList();
 
-        }
-        public string CoursesTeacher(int teacherId)
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Teacher teacher = db.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
-                return "[" + teacher.Course.Name + " ," + teacher.Name + "]";
-            }
+				foreach (var teacher in teachers)
+				{
+					Console.WriteLine(teacher.ToString());
+				}
+				return teachers;
+			}
+		}
 
-        }
-        public void AddTeachersToSubject(int teacherId, int subjectId)
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Teacher teacher = db.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
-                Subject subject = db.Subjects.Find(subjectId);
-                if (teacher != null && subject != null)
-                {
-                    if (!teacher.Subjects.Contains(subject))
-                    {
-                        teacher.Subjects.Add(subject);
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Subject already assigned");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Id");
-                }
-            }
+		public void AssingCourse(int teacherId, int courseId)
+		{
+			using (_dataBaseContext)
+			{
+				Teacher teacher = _dataBaseContext.Teachers.Find(teacherId);
+				Course course = _dataBaseContext.Courses.Find(courseId);
+				if (teacher != null && course != null)
+				{
+					teacher.Course = course;
+					_dataBaseContext.SaveChanges();
+				}
 
-        }
+			}
 
-    }
+		}
+
+		public Course CourseByTeacher(int teacherId)
+		{
+			using (_dataBaseContext)
+			{
+				Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
+				Console.WriteLine("[" + teacher.Course.Name + " ," + teacher.Name + "]");
+				return teacher.Course;
+			}
+
+		}
+
+		public void AddSubject(int teacherId, int subjectId)
+		{
+			using (_dataBaseContext)
+			{
+				Teacher teacher = _dataBaseContext.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
+				Subject subject = _dataBaseContext.Subjects.Find(subjectId);
+				if (teacher != null && subject != null)
+				{
+					if (!teacher.Subjects.Contains(subject))
+					{
+						teacher.Subjects.Add(subject);
+						_dataBaseContext.SaveChanges();
+					}
+					else
+					{
+						Console.WriteLine("Subject already assigned");
+					}
+				}
+				else
+				{
+					Console.WriteLine("Id");
+				}
+			}
+
+		}
+
+	}
 }

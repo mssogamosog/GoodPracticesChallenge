@@ -7,33 +7,45 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-    public class StudentDAO
-    {
-        public void CreateStudent(string name)
+    public class StudentDAO : IStudentDAO
+	{
+		IDataBaseContext _dataBaseContext;
+
+		public StudentDAO(IDataBaseContext dataBaseContext)
+		{
+			_dataBaseContext = dataBaseContext;
+		}
+
+		public void CreateStudent(string name)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext)
             {
                 Student student = new Student(name);
-                db.Students.Add(student);
-                db.SaveChanges();
+                _dataBaseContext.Students.Add(student);
+                _dataBaseContext.SaveChanges();
             }
         }
+
         public void DeleteStudent(int studentId)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using ( _dataBaseContext )
             {
-                Student student = db.Students.Find(studentId);
+                Student student = _dataBaseContext.Students.Find(studentId);
                 if (student != null)
                 {
                     try
                     {
-                        db.Students.Remove(student);
-                        db.SaveChanges();
+                        _dataBaseContext.Students.Remove(student);
+                        _dataBaseContext.SaveChanges();
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException e)
                     {
                         Console.WriteLine("References to this student must be delted firts, can not be deleted" + e.ToString());
                     }
+					catch(Exception e)
+					{
+						Console.WriteLine( e.Message);
+					}
                     
                 }else
                 {
@@ -42,37 +54,44 @@ namespace GoodPracticesChallenge
                 
             }
         }
+
         public void AssingForeingLanguage(int studentId ,int foreingLanguageId)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext)
             {
-                Student student = db.Students.Find(studentId);
-                ForeingLanguage foreingLanguage = db.ForeingLanguages.Find(foreingLanguageId);
+                Student student = _dataBaseContext.Students.Find(studentId);
+                ForeingLanguage foreingLanguage = _dataBaseContext.ForeingLanguages.Find(foreingLanguageId);
                 if (student != null && foreingLanguage != null )
                 {
                     student.ForeingLanguage = foreingLanguage;
-                    db.SaveChanges();
+                    _dataBaseContext.SaveChanges();
                 }
 
             }
 
         }
-        public void GetHeadmans()
+
+        public List<Student> GetHeadmans()
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using ( _dataBaseContext )
             {
-                var courses = db.Courses.Include(s => s.Headman);
-                foreach (var course in courses)
+				var courses = _dataBaseContext.Courses.Include(s => s.Headman);
+				List<Student> students = new List<Student>();
+
+				foreach (var course in courses)
                 {
                     Console.WriteLine("[" + course.Headman.Name + " ," + course.Name + "]");
+					students.Add(course.Headman);
                 }
+				return students;
             }
         }
+
         public void GetGradesByTeacher(int teacherId)
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext )
             {
-                Teacher teacher = db.Teachers.Include(t => t.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
+                Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
                 if (teacher != null)
                 {
                     var subjects = teacher.Subjects.ToList();
@@ -81,7 +100,7 @@ namespace GoodPracticesChallenge
                         Console.WriteLine("Grades of " + subject.Name);
                         if (subject.GetType() == typeof(ForeingLanguage))
                         {
-                            var students = db.Students.Include(s => s.Grades).Where(s => s.ForeingLanguage.Id == subject.Id).ToList();
+                            var students = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.ForeingLanguage.Id == subject.Id).ToList();
                             foreach (var student in students)
                             {
                                 GradesBySubject(student, subject);
@@ -89,7 +108,7 @@ namespace GoodPracticesChallenge
                         }
                         else
                         {
-                            var courses = db.Courses.Include(c => c.Students).Include(c => c.Students.Select(s => s.Grades))
+                            var courses = _dataBaseContext.Courses.Include(c => c.Students).Include(c => c.Students.Select(s => s.Grades))
                                            .Where(c => c.Subjects.Any(s => s.Id == subject.Id)).ToList();
                             foreach (var course in courses)
                             {
@@ -109,36 +128,21 @@ namespace GoodPracticesChallenge
             }
         }
 
-        private void GradesBySubject(Student student, Subject subject)
+        private List<Grade> GradesBySubject(Student student, Subject subject)
         {
             Console.WriteLine("Grades of Student" + student.Name);
-            using (DataBaseContext db = new DataBaseContext())
+            using ( _dataBaseContext )
             {
-                var grades = student.Grades.Where(g => g.Subject.Id == subject.Id).ToList();
+				List<Grade> grades = student.Grades.Where(g => g.Subject.Id == subject.Id).ToList();
                 Console.WriteLine(student.Name + " Grades");
                 foreach (var grade in grades)
                 {
                     Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
                 }
+				return grades;
 
             }
         }
-        public void ListStudentGrades(int studentId)
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Student student = db.Students.Include(g => g.Grades.Select(s => s.Subject)).Where(s => s.Id == studentId).FirstOrDefault();
-                if (student != null)
-                {
-                    var grades = student.Grades.OrderBy(g => g.Period).OrderBy(g => g.Subject.Name);
-                    Console.WriteLine(student.Name + " Grades");
-                    foreach (var grade in grades)
-                    {
-                        Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
-                    }
-                }
-
-            }
-        }
+        
     }
 }

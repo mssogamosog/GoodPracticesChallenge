@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodPracticesChallenge.Source
+namespace GoodPracticesChallenge
 {
     public enum Period
     {

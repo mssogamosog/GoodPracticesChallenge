@@ -1,4 +1,4 @@
-﻿using GoodPracticesChallenge.Source;
+﻿using GoodPracticesChallenge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +21,9 @@ namespace GoodPracticesChallenge
             //db.ForeingLanguages.Add(foreingLanguage);
             //      db.Courses.Add(course);
             //       db.SaveChanges();
-            CourseDAO c = new CourseDAO();
+            
             StudentDAO s = new StudentDAO();
-            GradeDAO g = new GradeDAO();
+            
 			//g.AddGradeToStudent(4, 1, Period.THIRD, 99.0);
 			//s.ListStudentGrades(4);
 			//s.DeleteStudent(30);
@@ -33,33 +33,41 @@ namespace GoodPracticesChallenge
 			//c.CreateCourse("japanse culture", 2);
 			//c.CoursesList();
 			//s.GetHeadmans();
-			IDataBaseContext _dataBaseContext = new DataBaseContext(); 
-			SubjectDAO d = new SubjectDAO(_dataBaseContext);
+			IDataBaseContext dataBaseContext = new DataBaseContext();
+			IGradeDAO gradeDAO = new GradeDAO( dataBaseContext,null);
+			IGradeBusiness gradeBusiness = new GradeBusiness( gradeDAO);
+			gradeDAO = new GradeDAO(dataBaseContext, gradeBusiness);
+			SubjectDAO d = new SubjectDAO(dataBaseContext);
+			
 			//d.CreateSubject("PLEASE", "some math");
 			//d.SubjectList();
-			SubjectsBusiness subjectsBusiness = new SubjectsBusiness(_dataBaseContext);
-			subjectsBusiness.GetSubjectsByTeacher(1);
-			//ForeingLanguageDAO f = new ForeingLanguageDAO();
-			//f.CreateForeingLanguage(ConcreteLanguage.SPANISH, "Spanish", "this is a spanish subject");
+			//subjectsBusiness.GetSubjectsByTeacher(1);
+			ForeignLanguageDAO foreignLanguage = new ForeignLanguageDAO(dataBaseContext);
+			//foreignLanguage.Create(ConcreteLanguage.PORTUGUESE, "This is sparta", "PLS");
+			CourseDAO c = new CourseDAO(dataBaseContext);
+			//c.List();
+			GradeDAO g = new GradeDAO(dataBaseContext,gradeBusiness );
+			g.Create(1,1,Period.SECOND,3005.6);
+			
 			//f.ForeingLanguageList();
 			//TeacherDAO t = new TeacherDAO();
 			//t.CreateTeacher("teacher 3");
 			//t.AssingCourse(1, 3);
 			//s.AssingForeingLanguage(4,3);
 			//t.AddTeachersToSubject(1,2);
-			c.AddSubjectsToCourse(2, 3);
-            //s.GetGradesByTeacher(1);
-            //for (int i = 0; i < 32; i++)
-            //{
-            //    c.AddStudentsToCourse(2, i + 40);
-            //}
-            //c.CreateCourse("Course OF 4", 4);
-            //Console.WriteLine(t.CoursesTeacher(1));
+			//c.AddSubjectsToCourse(2, 3);
+			//s.GetGradesByTeacher(1);
+			//for (int i = 0; i < 32; i++)
+			//{
+			//    c.AddStudentsToCourse(2, i + 40);
+			//}
+			//c.CreateCourse("Course OF 4", 4);
+			//Console.WriteLine(t.CoursesTeacher(1));
 
-            //CourseDAO c2 = new CourseDAO();
-            //c2.AddSubjectsToCourse(2, 4);
-            //TeacherDAO t2 = new TeacherDAO();
-            //t2.AddTeachersToSubject(1, 2);
-        }
+			//CourseDAO c2 = new CourseDAO();
+			//c2.AddSubjectsToCourse(2, 4);
+			//TeacherDAO t2 = new TeacherDAO();
+			//t2.AddTeachersToSubject(1, 2);
+		}
     }
 }

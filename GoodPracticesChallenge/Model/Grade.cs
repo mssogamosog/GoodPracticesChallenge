@@ -1,4 +1,4 @@
-﻿using GoodPracticesChallenge.Source;
+﻿using GoodPracticesChallenge;
 
 namespace GoodPracticesChallenge
 {

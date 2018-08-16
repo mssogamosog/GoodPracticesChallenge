@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
+
 
 namespace GoodPracticesChallenge
 {
-    public class CourseDAO
-    {
-        public void CreateCourse(String name, int headmanId)
+    public class CourseDAO : ICourseDAO
+	{
+		IDataBaseContext _dataBaseContext;
+
+		public CourseDAO(IDataBaseContext dataBaseContext)
+		{
+			_dataBaseContext = dataBaseContext;
+		}
+
+		public void Create(string name, int headmanId)
         {   
-            using (DataBaseContext db = new DataBaseContext())
+            using (_dataBaseContext )
             {
                 //db.Subjects.Add(subject);
                 //db.ForeingLanguages.Add(foreingLanguage);\
                 Student headman = new Student();
-                headman = db.Students.Find(headmanId);
+                headman = _dataBaseContext.Students.Find(headmanId);
                 
                 if (headman == null)
                 {
@@ -27,91 +34,96 @@ namespace GoodPracticesChallenge
                     Course course = new Course(name, headman);
                     course.Students = new List<Student>();
                     course.Students.Add(headman);
-                    db.Courses.Add(course);
-                    db.SaveChanges();
+                    _dataBaseContext.Courses.Add(course);
+                    _dataBaseContext.SaveChanges();
                 }            
             }
         }
-        public void ChangeHeadman(int courseId, int headmanId)
+       
+        public List<Course> List()
         {
-            using (DataBaseContext db = new DataBaseContext())
+            using ( _dataBaseContext )
             {
-                Course result = db.Courses.Find(courseId);
-                Student student = db.Students.Find(headmanId);
-                if (result != null && student != null)
-                {
-                    result.Headman = student;
-                    db.SaveChanges();
-                }
-                else
-                {
-                    Console.WriteLine("Headman Id or Course Id don't match");
-                }
-
-            }
-        }
-        public void CoursesList()
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                var courses = db.Courses.ToList();
+                var courses = _dataBaseContext.Courses.ToList();
                 foreach (var course in courses)
                 {
                     Console.WriteLine(course.ToString());
                 }
-            }
+				return courses;
+			}
         }
 
-        public void AddSubjectsToCourse(int courseId, int subjectId)
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Course course = db.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).FirstOrDefault();
-                Subject subject = db.Subjects.Find(subjectId);
-                if (course != null && subject != null)
-                {
-                    if (!course.Subjects.Contains(subject))
-                    {
-                        course.Subjects.Add(subject);
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        Console.WriteLine("The subject is already in the course");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Ids don't match");
-                }
-            }
+		public void UpdateHeadman(int courseId, int headmanId)
+		{
+			using (_dataBaseContext)
+			{
+				Course result = _dataBaseContext.Courses.Find(courseId);
+				Student student = _dataBaseContext.Students.Find(headmanId);
 
-        }
-        public void AddStudentsToCourse(int courseId, int studentId)
-        {
-            using (DataBaseContext db = new DataBaseContext())
-            {
-                Course course = db.Courses.Include(c => c.Students).Where(c => c.Id == courseId).FirstOrDefault();
-                Student student = db.Students.Find(studentId);
-                if (course != null && student != null)
-                {
-                    if (course.Students.Count() >= 30)
-                    {
-                        Console.WriteLine("Course with 30 students already");
-                    }
-                    else
-                    {
-                        course.Students.Add(student);
-                        db.SaveChanges();
-                    }
-                    
-                }
-                else
-                {
-                    Console.WriteLine("Student or Course  Id don't match");
-                }
+				if (result != null && student != null)
+				{
+					result.Headman = student;
+					_dataBaseContext.SaveChanges();
+				}
+				else
+				{
+					Console.WriteLine("Headman Id or Course Id don't match");
+				}
 
-            }
-        }
-    }
+			}
+		}
+
+		public void AddSubjects(int courseId, int subjectId)
+		{
+			using (_dataBaseContext)
+			{
+				Course course = _dataBaseContext.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).FirstOrDefault();
+				Subject subject = _dataBaseContext.Subjects.Find(subjectId);
+				if (course != null && subject != null)
+				{
+					if (!course.Subjects.Contains(subject))
+					{
+						course.Subjects.Add(subject);
+						_dataBaseContext.SaveChanges();
+					}
+					else
+					{
+						Console.WriteLine("The subject is already in the course");
+					}
+				}
+				else
+				{
+					Console.WriteLine("Ids don't match");
+				}
+			}
+
+		}
+
+		public void AddStudents(int courseId, int studentId)
+		{
+			using (_dataBaseContext)
+			{
+				Course course = _dataBaseContext.Courses.Include(c => c.Students).Where(c => c.Id == courseId).FirstOrDefault();
+				Student student = _dataBaseContext.Students.Find(studentId);
+				if (course != null && student != null)
+				{
+					if (course.Students.Count() >= 30)
+					{
+						Console.WriteLine("Course with 30 students already");
+					}
+					else
+					{
+						course.Students.Add(student);
+						_dataBaseContext.SaveChanges();
+					}
+
+				}
+				else
+				{
+					Console.WriteLine("Student or Course  Id don't match");
+				}
+
+			}
+		}
+	}
 }

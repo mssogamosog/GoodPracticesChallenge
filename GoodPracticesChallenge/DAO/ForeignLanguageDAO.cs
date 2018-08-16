@@ -25,6 +25,7 @@ namespace GoodPracticesChallenge
                 _dataBaseContext .SaveChanges();
             }
         }
+
         public List<ForeingLanguage> List()
         {
             using ( _dataBaseContext )

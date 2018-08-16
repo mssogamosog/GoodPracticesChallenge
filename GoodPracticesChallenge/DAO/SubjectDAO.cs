@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-    public class SubjectDAO : ISubjectDAO
+	public class SubjectDAO : ISubjectDAO
 	{
 		public IDataBaseContext _dataBaseContext;
 
@@ -17,7 +17,7 @@ namespace GoodPracticesChallenge
 		}
 
 		public void Create(string name, string description)
-        {
+		{
 
 			using (_dataBaseContext)
 			{
@@ -26,9 +26,10 @@ namespace GoodPracticesChallenge
 				_dataBaseContext.Subjects.Add(subject);
 				_dataBaseContext.SaveChanges();
 			}
-        }
-        public List<Subject> List()
-        {
+		}
+
+		public List<Subject> List()
+		{
 			using (_dataBaseContext)
 			{
 				var subjects = _dataBaseContext.Subjects.ToList();
@@ -38,8 +39,37 @@ namespace GoodPracticesChallenge
 				}
 				return subjects;
 			}
-			
-        }
-        
-    }
+
+		}
+
+		public List<Subject> GetSubjectsByTeacher(int courseId)
+		{
+			using (_dataBaseContext)
+			{
+				var courses = _dataBaseContext.Courses.Include(c => c.Subjects).Where(c => c.Id == courseId);
+				List<Subject> subjects = new List<Subject>();
+				if (courses != null)
+				{
+
+					foreach (var course in courses)
+					{
+						foreach (var subject in course.Subjects)
+						{
+							subjects.Add(subject);
+							Console.WriteLine(subject.ToString() + " ," + "[" + course.Name + "]");
+						}
+						return subjects;
+					}
+
+				}
+				else
+				{
+					Console.WriteLine("Id doesn't match");
+					return subjects;
+
+				}
+				return subjects;
+			}
+		}
+	}
 }
