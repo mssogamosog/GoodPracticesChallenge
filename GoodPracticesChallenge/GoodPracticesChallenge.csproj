@@ -64,6 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\IForeignLanguageDAO.cs" />
+    <Compile Include="DAO\ISubjectDAO.cs" />
+    <Compile Include="DAO\ISubjectsBusiness.cs" />
+    <Compile Include="DAO\SubjectsBusiness.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.Designer.cs">
       <DependentUpon>201808051810298_CreateDB.cs</DependentUpon>
@@ -74,7 +78,7 @@
     <Compile Include="DAO\CourseDAO.cs" />
     <Compile Include="Source\DataBaseContext.cs" />
     <Compile Include="Source\ForeingLanguage.cs" />
-    <Compile Include="DAO\ForeingLanguageDAO.cs" />
+    <Compile Include="DAO\ForeignLanguageDAO.cs" />
     <Compile Include="Source\Grade.cs" />
     <Compile Include="DAO\GradeDAO.cs" />
     <Compile Include="Source\IDataBaseContext.cs" />

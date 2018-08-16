@@ -37,17 +37,17 @@ namespace GoodPracticesChallenge
 			SubjectDAO d = new SubjectDAO(_dataBaseContext);
 			//d.CreateSubject("PLEASE", "some math");
 			//d.SubjectList();
-			d.SubjectsByCourse(24);
-
-            //ForeingLanguageDAO f = new ForeingLanguageDAO();
-            //f.CreateForeingLanguage(ConcreteLanguage.SPANISH, "Spanish", "this is a spanish subject");
-            //f.ForeingLanguageList();
-            //TeacherDAO t = new TeacherDAO();
-            //t.CreateTeacher("teacher 3");
-            //t.AssingCourse(1, 3);
-            //s.AssingForeingLanguage(4,3);
-            //t.AddTeachersToSubject(1,2);
-            c.AddSubjectsToCourse(2, 3);
+			SubjectsBusiness subjectsBusiness = new SubjectsBusiness(_dataBaseContext);
+			subjectsBusiness.GetSubjectsByTeacher(1);
+			//ForeingLanguageDAO f = new ForeingLanguageDAO();
+			//f.CreateForeingLanguage(ConcreteLanguage.SPANISH, "Spanish", "this is a spanish subject");
+			//f.ForeingLanguageList();
+			//TeacherDAO t = new TeacherDAO();
+			//t.CreateTeacher("teacher 3");
+			//t.AssingCourse(1, 3);
+			//s.AssingForeingLanguage(4,3);
+			//t.AddTeachersToSubject(1,2);
+			c.AddSubjectsToCourse(2, 3);
             //s.GetGradesByTeacher(1);
             //for (int i = 0; i < 32; i++)
             //{

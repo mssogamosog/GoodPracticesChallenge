@@ -6,6 +6,7 @@ namespace GoodPracticesChallenge
 {
 	public interface IDataBaseContext : IDisposable, IObjectContextAdapter
 	{
+		
 		DbSet<Course> Courses { get; set; }
 		DbSet<ForeingLanguage> ForeingLanguages { get; set; }
 		DbSet<Grade> Grades { get; set; }
