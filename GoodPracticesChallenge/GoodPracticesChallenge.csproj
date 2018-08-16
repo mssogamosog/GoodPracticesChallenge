@@ -72,6 +72,7 @@
     <Compile Include="DAO\IStudentDAO.cs" />
     <Compile Include="DAO\ISubjectDAO.cs" />
     <Compile Include="DAO\ITeacherDAO.cs" />
+    <Compile Include="DAO\StudentBusiness.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.Designer.cs">
       <DependentUpon>201808051810298_CreateDB.cs</DependentUpon>

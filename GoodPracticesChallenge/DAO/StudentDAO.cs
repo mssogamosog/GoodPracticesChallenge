@@ -55,21 +55,14 @@ namespace GoodPracticesChallenge
             }
         }
 
-        public void AssingForeingLanguage(int studentId ,int foreingLanguageId)
-        {
-            using (_dataBaseContext)
-            {
-                Student student = _dataBaseContext.Students.Find(studentId);
-                ForeingLanguage foreingLanguage = _dataBaseContext.ForeingLanguages.Find(foreingLanguageId);
-                if (student != null && foreingLanguage != null )
-                {
-                    student.ForeingLanguage = foreingLanguage;
-                    _dataBaseContext.SaveChanges();
-                }
-
-            }
-
-        }
+		public Student Get(int studentId )
+		{
+			using (_dataBaseContext)
+			{
+				Student student = _dataBaseContext.Students.Find(studentId);
+				return student;
+			}
+		}
 
         public List<Student> GetHeadmans()
         {
@@ -87,7 +80,12 @@ namespace GoodPracticesChallenge
             }
         }
 
-        public void GetGradesByTeacher(int teacherId)
+		public void Update(Student student)
+		{
+			_dataBaseContext.SaveChanges();
+		}
+
+		public void GetGradesByTeacher(int teacherId)
         {
             using (_dataBaseContext )
             {

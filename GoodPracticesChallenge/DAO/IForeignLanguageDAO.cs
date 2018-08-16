@@ -6,5 +6,6 @@ namespace GoodPracticesChallenge
 	{
 		void Create(ConcreteLanguage concreteLanguage, string name, string description);
 		List<ForeingLanguage> List();
+		ForeingLanguage Get(int foreingLanguageId);
 	}
 }
