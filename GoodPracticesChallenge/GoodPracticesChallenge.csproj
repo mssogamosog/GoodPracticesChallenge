@@ -69,10 +69,13 @@
     <Compile Include="DAO\IForeignLanguageDAO.cs" />
     <Compile Include="Business\IGradeBusiness.cs" />
     <Compile Include="DAO\IGradeDAO.cs" />
+    <Compile Include="Business\IStudentBusiness.cs" />
     <Compile Include="DAO\IStudentDAO.cs" />
     <Compile Include="DAO\ISubjectDAO.cs" />
+    <Compile Include="Business\ITeacherBusiness.cs" />
     <Compile Include="DAO\ITeacherDAO.cs" />
-    <Compile Include="DAO\StudentBusiness.cs" />
+    <Compile Include="Business\StudentBusiness.cs" />
+    <Compile Include="Business\TeacherBusiness.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.cs" />
     <Compile Include="Migrations\201808051810298_CreateDB.Designer.cs">
       <DependentUpon>201808051810298_CreateDB.cs</DependentUpon>

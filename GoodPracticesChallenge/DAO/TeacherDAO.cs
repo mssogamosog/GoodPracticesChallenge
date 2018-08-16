@@ -68,21 +68,6 @@ namespace GoodPracticesChallenge
 			}
 		}
 
-		public void AssingCourse(int teacherId, int courseId)
-		{
-			using (_dataBaseContext)
-			{
-				Teacher teacher = _dataBaseContext.Teachers.Find(teacherId);
-				Course course = _dataBaseContext.Courses.Find(courseId);
-				if (teacher != null && course != null)
-				{
-					teacher.Course = course;
-					_dataBaseContext.SaveChanges();
-				}
-
-			}
-
-		}
 
 		public Course CourseByTeacher(int teacherId)
 		{
@@ -121,5 +106,15 @@ namespace GoodPracticesChallenge
 
 		}
 
+		public Teacher Get(int teacherId)
+		{
+			Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
+			return teacher;
+		}
+
+		public void Update(Teacher teacher)
+		{
+			_dataBaseContext.SaveChanges();
+		}
 	}
 }

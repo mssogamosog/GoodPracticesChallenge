@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace GoodPracticesChallenge
 {
-	public class StudentBusiness
+	public class StudentBusiness : IStudentBusiness
 
 	{
 		IForeignLanguageDAO _foreignLanguageDAO;
 		IStudentDAO _studentDAO;
+
+		public StudentBusiness(IForeignLanguageDAO foreignLanguageDAO, IStudentDAO studentDAO)
+		{
+			_foreignLanguageDAO = foreignLanguageDAO;
+			_studentDAO = studentDAO;
+		}
 
 		public void AssingForeingLanguage(int studentId, int foreingLanguageId)
 		{

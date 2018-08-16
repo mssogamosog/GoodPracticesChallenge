@@ -125,5 +125,14 @@ namespace GoodPracticesChallenge
 
 			}
 		}
+
+		public Course Get(int courseId)
+		{
+			using (_dataBaseContext)
+			{
+				Course course = _dataBaseContext.Courses.Find(courseId);
+				return course;
+			}
+		}
 	}
 }

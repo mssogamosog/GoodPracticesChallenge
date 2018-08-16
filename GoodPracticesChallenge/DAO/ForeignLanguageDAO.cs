@@ -39,5 +39,14 @@ namespace GoodPracticesChallenge
 				return foreingLanguages;
 			}
         }
-    }
+
+		public ForeingLanguage Get(int foreignLanguageId)
+		{
+			using (_dataBaseContext)
+			{
+				ForeingLanguage foreignLanguage = _dataBaseContext.ForeingLanguages.Find(foreignLanguageId);
+				return foreignLanguage;
+			}
+		}
+	}
 }

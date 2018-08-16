@@ -64,20 +64,24 @@ namespace GoodPracticesChallenge
 			}
 		}
 
-		public void GradesByStudent(int studentId)
+		public List<Grade> GradesByStudent(int studentId)
 		{
 			using (_dataBaseContext )
 			{
-				Student student = _dataBaseContext.Students.Include(g => g.Grades.Select(s => s.Subject)).Where(s => s.Id == studentId).FirstOrDefault();
+				Student student = _dataBaseContext.Students.Include(g => g.Grades.Select(s => s.Subject))
+					.Where(s => s.Id == studentId).FirstOrDefault();
+				List<Grade> grades = new List<Grade>();
 				if (student != null)
 				{
-					var grades = student.Grades.OrderBy(g => g.Period).OrderBy(g => g.Subject.Name);
+					grades = student.Grades.OrderBy(g => g.Period).OrderBy(g => g.Subject.Name).ToList();
 					Console.WriteLine(student.Name + " Grades");
 					foreach (var grade in grades)
 					{
 						Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
 					}
+					return grades;
 				}
+				return grades;
 
 			}
 		}

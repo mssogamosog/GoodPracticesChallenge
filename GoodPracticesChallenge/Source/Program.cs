@@ -21,8 +21,7 @@ namespace GoodPracticesChallenge
             //db.ForeingLanguages.Add(foreingLanguage);
             //      db.Courses.Add(course);
             //       db.SaveChanges();
-            
-            StudentDAO s = new StudentDAO();
+
             
 			//g.AddGradeToStudent(4, 1, Period.THIRD, 99.0);
 			//s.ListStudentGrades(4);
@@ -47,7 +46,7 @@ namespace GoodPracticesChallenge
 			CourseDAO c = new CourseDAO(dataBaseContext);
 			//c.List();
 			GradeDAO g = new GradeDAO(dataBaseContext,gradeBusiness );
-			g.Create(1,1,Period.SECOND,3005.6);
+			g.Create(1,1,Period.THIRD,5.6);
 			
 			//f.ForeingLanguageList();
 			//TeacherDAO t = new TeacherDAO();

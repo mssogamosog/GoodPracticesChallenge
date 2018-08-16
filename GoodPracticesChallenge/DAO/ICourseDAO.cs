@@ -9,5 +9,6 @@ namespace GoodPracticesChallenge
 		void UpdateHeadman(int courseId, int headmanId);
 		void AddSubjects(int courseId, int subjectId);
 		void AddStudents(int courseId, int studentId);
+		Course Get(int courseId);
 	}
 }
