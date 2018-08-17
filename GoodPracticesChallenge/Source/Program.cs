@@ -26,23 +26,24 @@ namespace GoodPracticesChallenge
                 var dataBaseContext = scope.Resolve<IDataBaseContext>();
                 var gradeBusiness = scope.Resolve<IGradeBusiness>();
 
-                courseDAO.AddSubjects(1,9);
-                //courseDAO.Create("daam", 2);
-                courseDAO.AddStudents(14,5);
-                courseDAO.UpdateHeadman(14,7);
-                //courseDAO.List();
-                //foreignLanguageDAO.Create(ConcreteLanguage.SPANISH, "aint", "sdfsdfds");
-                //foreignLanguageDAO.List();
-                //studentDAO.DeleteStudent(15);
-                //studentDAO.CreateStudent("dgfgdgfdfgdgf");
-                //studentDAO.GetGradesByTeacher(1);
-                //studentDAO.GetHeadmans();
-                //subjectDAO.List();
-                //subjectDAO.Create("sfsdfsdfdsf", "fgdgdfdfgdfggdfsag");
-                subjectDAO.GetSubjectsByTeacher(1);
-                gradeBusiness.Create(1, 2, Period.FIRST, 58888.6);
-                //studentBusiness.AssingForeingLanguage(1, 2);
-                //teacherBusiness.AssingCourse(3,5);
+				//courseDAO.AddSubjects(1,9);
+				//courseDAO.Create("daam", 2);
+				//courseDAO.AddStudents(14,5);
+				//courseDAO.UpdateHeadman(14,7);
+				//courseDAO.List();
+				//foreignLanguageDAO.Create(ConcreteLanguage.SPANISH, "aint", "sdfsdfds");
+				//foreignLanguageDAO.List();
+				//studentDAO.DeleteStudent(15);
+				//studentDAO.CreateStudent("dgfgdgfdfgdgf");
+				//studentDAO.GetGradesByTeacher(1);
+				//studentDAO.GetHeadmans();
+				//subjectDAO.List();
+				//subjectDAO.Create("sfsdfsdfdsf", "fgdgdfdfgdfggdfsag");
+				// subjectDAO.GetSubjectsByTeacher(1);
+				//gradeBusiness.Create(1, 2, Period.FIRST, 58888.6);
+				//studentBusiness.AssingForeingLanguage(1, 2);
+				//teacherBusiness.AssingCourse(3,5);
+				//studentDAO.Update(6,10);
 
                 string option = "100";
 

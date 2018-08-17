@@ -30,7 +30,7 @@ namespace GoodPracticesChallenge
         public List<ForeingLanguage> List()
         {
           
-                var foreingLanguages = _dataBaseContext .ForeingLanguages.ToList();
+                var foreingLanguages = _dataBaseContext.ForeingLanguages.ToList();
 
                 foreach (var foreingLaguage in foreingLanguages)
                 {
@@ -43,7 +43,7 @@ namespace GoodPracticesChallenge
 		public ForeingLanguage Get(int foreignLanguageId)
 		{
 			
-				ForeingLanguage foreignLanguage = _dataBaseContext.ForeingLanguages.Find(foreignLanguageId);
+				var foreignLanguage = _dataBaseContext.ForeingLanguages.Find(foreignLanguageId);
 				return foreignLanguage;
 		}
 	}

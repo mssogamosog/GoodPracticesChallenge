@@ -20,13 +20,10 @@ namespace GoodPracticesChallenge
 
 		public void AssingForeingLanguage(int studentId, int foreingLanguageId)
 		{
-
-			Student student = _studentDAO.Get(studentId);
-			ForeingLanguage foreingLanguage = _foreignLanguageDAO.Get(foreingLanguageId);
-			if (student != null && foreingLanguage != null)
+			var foreingLanguage = _foreignLanguageDAO.Get(foreingLanguageId);
+			if (foreingLanguage != null)
 			{
-				student.ForeingLanguage = foreingLanguage;
-				_studentDAO.Update(student);
+				_studentDAO.Update(studentId,foreingLanguage);
 			}
 
 
