@@ -1,4 +1,4 @@
-﻿namespace GoodPracticesChallenge.DAO
+﻿namespace GoodPracticesChallenge
 {
 	public interface ITeacherBusiness
 	{

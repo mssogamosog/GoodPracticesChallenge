@@ -60,11 +60,10 @@ namespace GoodPracticesChallenge
 
 		public Student Get(int studentId )
 		{
-			using (_dataBaseContext)
-			{
-				Student student = _dataBaseContext.Students.Find(studentId);
+
+				Student student = _dataBaseContext.Students.Include( s  => s.ForeingLanguage ).Where(s => s.Id == studentId).FirstOrDefault();
 				return student;
-			}
+		
 		}
 
         public List<Student> GetHeadmans()

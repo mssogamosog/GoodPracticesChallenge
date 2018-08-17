@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodPracticesChallenge.DAO
+namespace GoodPracticesChallenge
 {
 	public class TeacherBusiness : ITeacherBusiness
 	{
@@ -20,12 +20,11 @@ namespace GoodPracticesChallenge.DAO
 		public void AssingCourse(int teacherId, int courseId)
 		{
 
-			Course course = _courseDAO.Get(courseId);
-			Teacher teacher = _teacherDAO.Get(teacherId);
+            IQueryable<Course> course = _courseDAO.Get(courseId);
+            IQueryable<Teacher> teacher = _teacherDAO.Get(teacherId);
 			if (teacher != null && course != null)
 			{
-				teacher.Course = course;
-				_teacherDAO.Update(teacher);
+				_teacherDAO.Update(teacher.FirstOrDefault(),course.FirstOrDefault());
 			}
 
 

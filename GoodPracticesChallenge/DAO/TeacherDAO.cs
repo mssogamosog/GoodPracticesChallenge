@@ -109,15 +109,16 @@ namespace GoodPracticesChallenge
 
 		}
 
-		public Teacher Get(int teacherId)
+		public IQueryable<Teacher> Get(int teacherId)
 		{
-			Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
+            IQueryable<Teacher> teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId);
 			return teacher;
 		}
 
-		public void Update(Teacher teacher)
+		public void Update(Teacher teacher, Course course)
 		{
-			_dataBaseContext.SaveChanges();
+            teacher.Course = course;
+            _dataBaseContext.SaveChanges();
 		}
 	}
 }

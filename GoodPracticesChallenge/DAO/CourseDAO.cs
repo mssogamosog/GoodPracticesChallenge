@@ -128,13 +128,12 @@ namespace GoodPracticesChallenge
 			}
 		}
 
-		public Course Get(int courseId)
+		public IQueryable<Course> Get(int courseId)
 		{
-			using (_dataBaseContext)
-			{
-				Course course = _dataBaseContext.Courses.Find(courseId);
-				return course;
-			}
+
+			IQueryable<Course> course = _dataBaseContext.Courses.Include( c => c.Students).Where(c => c.Id == courseId);
+			return course;
+
 		}
 	}
 }

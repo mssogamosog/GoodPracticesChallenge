@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GoodPracticesChallenge
 {
@@ -9,7 +10,8 @@ namespace GoodPracticesChallenge
 		void Create(string name);
 		void Delete(int teacherId);
 		List<Teacher> List();
-		Teacher Get(int teacherId);
-		void Update(Teacher teacher);
-	}
+        IQueryable<Teacher> Get(int teacherId);
+        void Update(Teacher teacher, Course course);
+
+    }
 }
