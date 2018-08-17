@@ -10,10 +10,12 @@ namespace GoodPracticesChallenge
 	public class SubjectDAO : ISubjectDAO
 	{
 		public IDataBaseContext _dataBaseContext;
+		IMessaging _messaging;
 
-		public SubjectDAO(IDataBaseContext dataBaseContext)
+		public SubjectDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void Create(string name, string description)
@@ -56,7 +58,7 @@ namespace GoodPracticesChallenge
 						foreach (var subject in course.Subjects)
 						{
 							subjects.Add(subject);
-							Console.WriteLine(subject.ToString() + " ," + "[" + course.Name + "]");
+							_messaging.DisplayMessage(subject.ToString() + " ," + "[" + course.Name + "]");
 						}
 						return subjects;
 					}
@@ -64,7 +66,7 @@ namespace GoodPracticesChallenge
 				}
 				else
 				{
-					Console.WriteLine("Id doesn't match");
+					_messaging.DisplayMessage("Id doesn't match");
 					return subjects;
 
 				}

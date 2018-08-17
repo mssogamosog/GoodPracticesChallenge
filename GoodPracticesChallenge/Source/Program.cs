@@ -33,21 +33,23 @@ namespace GoodPracticesChallenge
 			//c.CoursesList();
 			//s.GetHeadmans();
 			IDataBaseContext dataBaseContext = new DataBaseContext();
-			IGradeDAO gradeDAO = new GradeDAO( dataBaseContext,null);
+			
+			IMessaging messaging = new Messaging();
+			IGradeDAO gradeDAO = new GradeDAO(dataBaseContext, null, messaging);
 			IGradeBusiness gradeBusiness = new GradeBusiness( gradeDAO);
-			gradeDAO = new GradeDAO(dataBaseContext, gradeBusiness);
-			SubjectDAO d = new SubjectDAO(dataBaseContext);
+			//gradeDAO = new GradeDAO(dataBaseContext, gradeBusiness);
+			SubjectDAO d = new SubjectDAO(dataBaseContext, messaging);
 			
 			//d.CreateSubject("PLEASE", "some math");
 			//d.SubjectList();
 			//subjectsBusiness.GetSubjectsByTeacher(1);
-			ForeignLanguageDAO foreignLanguage = new ForeignLanguageDAO(dataBaseContext);
+			//ForeignLanguageDAO foreignLanguage = new ForeignLanguageDAO(dataBaseContext);
 			//foreignLanguage.Create(ConcreteLanguage.PORTUGUESE, "This is sparta", "PLS");
-			CourseDAO c = new CourseDAO(dataBaseContext);
+			CourseDAO c = new CourseDAO(dataBaseContext , messaging);
 			//c.List();
-			GradeDAO g = new GradeDAO(dataBaseContext,gradeBusiness );
-			g.Create(1,1,Period.THIRD,5.6);
-			
+			GradeDAO g = new GradeDAO(dataBaseContext, gradeBusiness, messaging);
+			g.Create(1,1,Period.THIRD,58888.6);
+			//c.List();
 			//f.ForeingLanguageList();
 			//TeacherDAO t = new TeacherDAO();
 			//t.CreateTeacher("teacher 3");

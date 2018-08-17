@@ -13,10 +13,13 @@ namespace GoodPracticesChallenge
 
 		IDataBaseContext _dataBaseContext;
 
-		public GradeDAO( IDataBaseContext dataBaseContext, IGradeBusiness gradeBusiness)
+		IMessaging _messaging;
+
+		public GradeDAO( IDataBaseContext dataBaseContext ,IGradeBusiness gradeBusiness, IMessaging messaging)
 		{
 			_gradeBusiness = gradeBusiness;
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void Create(int studentId,int subjectId,Period period,double value)
@@ -33,21 +36,21 @@ namespace GoodPracticesChallenge
                         if (currentGrade != null)
                         {
                             currentGrade.Value = value;
-                            Console.WriteLine("Grade exists");
+							_messaging.DisplayMessage("Grade exists");
                             _dataBaseContext.SaveChanges();
                         }
                         else
                         {
                             student.Grades.Add(grade);
                             _dataBaseContext.SaveChanges();
-                            Console.WriteLine("Grade Added");
+							_messaging.DisplayMessage("Grade Added");
                         }
                         if(period != Period.FINAL) _gradeBusiness.UpdateFinal(student, subject);
 
                     }
                     else
                     {
-                        Console.WriteLine("student or subject ID don't match");
+						_messaging.DisplayMessage("student or subject ID don't match");
                     }
 
                 }
@@ -74,10 +77,10 @@ namespace GoodPracticesChallenge
 				if (student != null)
 				{
 					grades = student.Grades.OrderBy(g => g.Period).OrderBy(g => g.Subject.Name).ToList();
-					Console.WriteLine(student.Name + " Grades");
+					_messaging.DisplayMessage(student.Name + " Grades");
 					foreach (var grade in grades)
 					{
-						Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
+						_messaging.DisplayMessage("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
 					}
 					return grades;
 				}

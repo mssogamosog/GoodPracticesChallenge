@@ -11,9 +11,12 @@ namespace GoodPracticesChallenge
 	{
 		IDataBaseContext _dataBaseContext;
 
-		public StudentDAO(IDataBaseContext dataBaseContext)
+		IMessaging _messaging;
+
+		public StudentDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void CreateStudent(string name)
@@ -40,16 +43,16 @@ namespace GoodPracticesChallenge
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException e)
                     {
-                        Console.WriteLine("References to this student must be delted firts, can not be deleted" + e.ToString());
+						_messaging.DisplayMessage("References to this student must be delted firts, can not be deleted" + e.ToString());
                     }
 					catch(Exception e)
 					{
-						Console.WriteLine( e.Message);
+						_messaging.DisplayMessage( e.Message);
 					}
                     
                 }else
                 {
-                    Console.WriteLine("Student not found");
+					_messaging.DisplayMessage("Student not found");
                 }
                 
             }
@@ -73,7 +76,7 @@ namespace GoodPracticesChallenge
 
 				foreach (var course in courses)
                 {
-                    Console.WriteLine("[" + course.Headman.Name + " ," + course.Name + "]");
+					_messaging.DisplayMessage("[" + course.Headman.Name + " ," + course.Name + "]");
 					students.Add(course.Headman);
                 }
 				return students;
@@ -95,7 +98,7 @@ namespace GoodPracticesChallenge
                     var subjects = teacher.Subjects.ToList();
                     foreach (var subject in subjects)
                     {
-                        Console.WriteLine("Grades of " + subject.Name);
+						_messaging.DisplayMessage("Grades of " + subject.Name);
                         if (subject.GetType() == typeof(ForeingLanguage))
                         {
                             var students = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.ForeingLanguage.Id == subject.Id).ToList();
@@ -121,21 +124,21 @@ namespace GoodPracticesChallenge
                 }
                 else
                 {
-                    Console.WriteLine("Teacher doesn't exist");
+					_messaging.DisplayMessage("Teacher doesn't exist");
                 }
             }
         }
 
         private List<Grade> GradesBySubject(Student student, Subject subject)
         {
-            Console.WriteLine("Grades of Student" + student.Name);
+			_messaging.DisplayMessage("Grades of Student" + student.Name);
             using ( _dataBaseContext )
             {
 				List<Grade> grades = student.Grades.Where(g => g.Subject.Id == subject.Id).ToList();
                 Console.WriteLine(student.Name + " Grades");
                 foreach (var grade in grades)
                 {
-                    Console.WriteLine("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
+					_messaging.DisplayMessage("[ " + grade.Period + " ," + grade.Subject.Name + " ," + grade.Value.ToString() + " ]");
                 }
 				return grades;
 

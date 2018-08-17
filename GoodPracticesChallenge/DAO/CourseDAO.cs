@@ -10,10 +10,12 @@ namespace GoodPracticesChallenge
     public class CourseDAO : ICourseDAO
 	{
 		IDataBaseContext _dataBaseContext;
+		IMessaging _messaging;
 
-		public CourseDAO(IDataBaseContext dataBaseContext)
+		public CourseDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void Create(string name, int headmanId)
@@ -27,7 +29,7 @@ namespace GoodPracticesChallenge
                 
                 if (headman == null)
                 {
-                    Console.WriteLine("Student Id not Found");
+					_messaging.DisplayMessage("Student Id not Found");
                 }
                 else
                 {
@@ -47,7 +49,7 @@ namespace GoodPracticesChallenge
                 var courses = _dataBaseContext.Courses.ToList();
                 foreach (var course in courses)
                 {
-                    Console.WriteLine(course.ToString());
+					_messaging.DisplayMessage(course.ToString());
                 }
 				return courses;
 			}
@@ -67,7 +69,7 @@ namespace GoodPracticesChallenge
 				}
 				else
 				{
-					Console.WriteLine("Headman Id or Course Id don't match");
+					_messaging.DisplayMessage("Headman Id or Course Id don't match");
 				}
 
 			}
@@ -88,12 +90,12 @@ namespace GoodPracticesChallenge
 					}
 					else
 					{
-						Console.WriteLine("The subject is already in the course");
+						_messaging.DisplayMessage("The subject is already in the course");
 					}
 				}
 				else
 				{
-					Console.WriteLine("Ids don't match");
+					_messaging.DisplayMessage("Ids don't match");
 				}
 			}
 
@@ -109,7 +111,7 @@ namespace GoodPracticesChallenge
 				{
 					if (course.Students.Count() >= 30)
 					{
-						Console.WriteLine("Course with 30 students already");
+						_messaging.DisplayMessage("Course with 30 students already");
 					}
 					else
 					{
@@ -120,7 +122,7 @@ namespace GoodPracticesChallenge
 				}
 				else
 				{
-					Console.WriteLine("Student or Course  Id don't match");
+					_messaging.DisplayMessage("Student or Course  Id don't match");
 				}
 
 			}

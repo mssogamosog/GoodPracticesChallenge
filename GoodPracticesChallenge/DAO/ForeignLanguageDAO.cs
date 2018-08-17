@@ -9,10 +9,12 @@ namespace GoodPracticesChallenge
     class ForeignLanguageDAO : IForeignLanguageDAO
 	{
 		IDataBaseContext _dataBaseContext;
+		IMessaging _messaging;
 
-		public ForeignLanguageDAO(IDataBaseContext dataBaseContext)
+		public ForeignLanguageDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void Create(ConcreteLanguage concreteLanguage,string name, string description)
@@ -34,7 +36,7 @@ namespace GoodPracticesChallenge
 
                 foreach (var foreingLaguage in foreingLanguages)
                 {
-                    Console.WriteLine(foreingLaguage.ToString());
+					_messaging.DisplayMessage(foreingLaguage.ToString());
                 }
 				return foreingLanguages;
 			}

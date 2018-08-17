@@ -11,9 +11,12 @@ namespace GoodPracticesChallenge
 	{
 		IDataBaseContext _dataBaseContext;
 
-		public TeacherDAO(IDataBaseContext dataBaseContext)
+		IMessaging _messaging;
+
+		public TeacherDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
+			_messaging = messaging;
 		}
 
 		public void Create(string name)
@@ -74,7 +77,7 @@ namespace GoodPracticesChallenge
 			using (_dataBaseContext)
 			{
 				Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
-				Console.WriteLine("[" + teacher.Course.Name + " ," + teacher.Name + "]");
+				_messaging.DisplayMessage("[" + teacher.Course.Name + " ," + teacher.Name + "]");
 				return teacher.Course;
 			}
 
