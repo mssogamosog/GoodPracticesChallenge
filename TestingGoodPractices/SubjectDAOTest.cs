@@ -86,12 +86,21 @@ namespace TestingGoodPractices
 		{
 			List<Teacher> output = new List<Teacher>
 			{
-				new Teacher{Name ="Teacher Test1" , Id = 1,Subjects = null },
+				new Teacher{Name ="Teacher Test1" , Id = 1, },
 				new Teacher{Name ="Teacher2" , Id = 2},
 				new Teacher{Name ="Teacher3" , Id = 3},
 				new Teacher{Name ="Teacher4" , Id = 4},
 
 			};
+			output[0].Subjects.Add(SampleSubjects()[0]);
+			output[0].Subjects.Add(SampleSubjects()[1]);
+			output[0].Subjects.Add(SampleSubjects()[3]);
+			output[0].Subjects.Add(SampleSubjects()[4]);
+			output[0].Subjects.Add(SampleSubjects()[5]);
+			output[1].Subjects.Add(SampleSubjects()[5]);
+			output[1].Subjects.Add(SampleSubjects()[1]);
+			output[1].Subjects.Add(SampleSubjects()[6]);
+			output[1].Subjects.Add(SampleSubjects()[2]);
 			return output;
 		}
 	}
