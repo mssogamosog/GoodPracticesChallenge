@@ -20,8 +20,7 @@ namespace GoodPracticesChallenge
 
 		public void Create(string name, int headmanId)
         {   
-            using (_dataBaseContext )
-            {
+            
                 //db.Subjects.Add(subject);
                 //db.ForeingLanguages.Add(foreingLanguage);\
                 Student headman = new Student();
@@ -39,26 +38,24 @@ namespace GoodPracticesChallenge
                     _dataBaseContext.Courses.Add(course);
                     _dataBaseContext.SaveChanges();
                 }            
-            }
+            
         }
        
         public List<Course> List()
         {
-            using ( _dataBaseContext )
-            {
+            
                 var courses = _dataBaseContext.Courses.ToList();
                 foreach (var course in courses)
                 {
 					_messaging.DisplayMessage(course.ToString());
                 }
 				return courses;
-			}
+			
         }
 
 		public void UpdateHeadman(int courseId, int headmanId)
 		{
-			using (_dataBaseContext)
-			{
+			
 				Course result = _dataBaseContext.Courses.Find(courseId);
 				Student student = _dataBaseContext.Students.Find(headmanId);
 
@@ -71,14 +68,11 @@ namespace GoodPracticesChallenge
 				{
 					_messaging.DisplayMessage("Headman Id or Course Id don't match");
 				}
-
-			}
 		}
 
 		public void AddSubjects(int courseId, int subjectId)
 		{
-			using (_dataBaseContext)
-			{
+			
 				Course course = _dataBaseContext.Courses.Include(s => s.Subjects).Where(c => c.Id == courseId).FirstOrDefault();
 				Subject subject = _dataBaseContext.Subjects.Find(subjectId);
 				if (course != null && subject != null)
@@ -97,14 +91,13 @@ namespace GoodPracticesChallenge
 				{
 					_messaging.DisplayMessage("Ids don't match");
 				}
-			}
+			
 
 		}
 
 		public void AddStudents(int courseId, int studentId)
 		{
-			using (_dataBaseContext)
-			{
+			
 				Course course = _dataBaseContext.Courses.Include(c => c.Students).Where(c => c.Id == courseId).FirstOrDefault();
 				Student student = _dataBaseContext.Students.Find(studentId);
 				if (course != null && student != null)
@@ -125,7 +118,7 @@ namespace GoodPracticesChallenge
 					_messaging.DisplayMessage("Student or Course  Id don't match");
 				}
 
-			}
+			
 		}
 
 		public IQueryable<Course> Get(int courseId)

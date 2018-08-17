@@ -4,7 +4,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace GoodPracticesChallenge
 {
-	public interface IDataBaseContext : IDisposable, IObjectContextAdapter
+	public interface IDataBaseContext 
 	{
 		
 		DbSet<Course> Courses { get; set; }

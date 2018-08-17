@@ -21,18 +21,16 @@ namespace GoodPracticesChallenge
 
 		public void Create(string name)
         {
-            using ( _dataBaseContext )
-            {
+           
                 Teacher teacher = new Teacher(name);
                 _dataBaseContext.Teachers.Add(teacher);
                 _dataBaseContext.SaveChanges();
-            }
+            
         }
 
         public void Delete(int teacherId)
         {
-            using (_dataBaseContext )
-            {
+           
                 Teacher teacher = _dataBaseContext.Teachers.Where(t => t.Id == teacherId).FirstOrDefault();
                 if (teacher == null)
                 {
@@ -53,14 +51,13 @@ namespace GoodPracticesChallenge
                     }
 
                 }
-            }
+            
             
         }
 
 		public List<Teacher> List()
 		{
-			using (_dataBaseContext)
-			{
+			
 				var teachers = _dataBaseContext.Teachers.ToList();
 
 				foreach (var teacher in teachers)
@@ -68,25 +65,23 @@ namespace GoodPracticesChallenge
 					Console.WriteLine(teacher.ToString());
 				}
 				return teachers;
-			}
+		
 		}
 
 
 		public Course CourseByTeacher(int teacherId)
 		{
-			using (_dataBaseContext)
-			{
+			
 				Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
 				_messaging.DisplayMessage("[" + teacher.Course.Name + " ," + teacher.Name + "]");
 				return teacher.Course;
-			}
+			
 
 		}
 
 		public void AddSubject(int teacherId, int subjectId)
 		{
-			using (_dataBaseContext)
-			{
+			
 				Teacher teacher = _dataBaseContext.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
 				Subject subject = _dataBaseContext.Subjects.Find(subjectId);
 				if (teacher != null && subject != null)
@@ -105,7 +100,7 @@ namespace GoodPracticesChallenge
 				{
 					Console.WriteLine("Id");
 				}
-			}
+			
 
 		}
 

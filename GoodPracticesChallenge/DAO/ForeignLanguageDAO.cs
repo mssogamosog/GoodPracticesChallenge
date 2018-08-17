@@ -20,18 +20,16 @@ namespace GoodPracticesChallenge
 		public void Create(ConcreteLanguage concreteLanguage,string name, string description)
         {
 
-            using (_dataBaseContext)
-            {
+           
                 ForeingLanguage foreingLanguage = new ForeingLanguage(concreteLanguage, name, description);
                 _dataBaseContext .Subjects.Add(foreingLanguage);
                 _dataBaseContext .SaveChanges();
-            }
+            
         }
 
         public List<ForeingLanguage> List()
         {
-            using ( _dataBaseContext )
-            {
+          
                 var foreingLanguages = _dataBaseContext .ForeingLanguages.ToList();
 
                 foreach (var foreingLaguage in foreingLanguages)
@@ -39,7 +37,7 @@ namespace GoodPracticesChallenge
 					_messaging.DisplayMessage(foreingLaguage.ToString());
                 }
 				return foreingLanguages;
-			}
+			
         }
 
 		public ForeingLanguage Get(int foreignLanguageId)

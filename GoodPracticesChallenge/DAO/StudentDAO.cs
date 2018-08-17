@@ -21,18 +21,16 @@ namespace GoodPracticesChallenge
 
 		public void CreateStudent(string name)
         {
-            using (_dataBaseContext)
-            {
+            
                 Student student = new Student(name);
                 _dataBaseContext.Students.Add(student);
                 _dataBaseContext.SaveChanges();
-            }
+            
         }
 
         public void DeleteStudent(int studentId)
         {
-            using ( _dataBaseContext )
-            {
+            
                 Student student = _dataBaseContext.Students.Find(studentId);
                 if (student != null)
                 {
@@ -43,7 +41,7 @@ namespace GoodPracticesChallenge
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException e)
                     {
-						_messaging.DisplayMessage("References to this student must be delted firts, can not be deleted" + e.ToString());
+						_messaging.DisplayMessage("References to this student must be delted firts, can not be deleted" + e.Message);
                     }
 					catch(Exception e)
 					{
@@ -55,7 +53,7 @@ namespace GoodPracticesChallenge
 					_messaging.DisplayMessage("Student not found");
                 }
                 
-            }
+            
         }
 
 		public Student Get(int studentId )
@@ -68,8 +66,7 @@ namespace GoodPracticesChallenge
 
         public List<Student> GetHeadmans()
         {
-            using ( _dataBaseContext )
-            {
+            
 				var courses = _dataBaseContext.Courses.Include(s => s.Headman);
 				List<Student> students = new List<Student>();
 
@@ -79,7 +76,7 @@ namespace GoodPracticesChallenge
 					students.Add(course.Headman);
                 }
 				return students;
-            }
+            
         }
 
 		public void Update(Student student)
@@ -89,8 +86,7 @@ namespace GoodPracticesChallenge
 
 		public void GetGradesByTeacher(int teacherId)
         {
-            using (_dataBaseContext )
-            {
+          
                 Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
                 if (teacher != null)
                 {
@@ -125,14 +121,13 @@ namespace GoodPracticesChallenge
                 {
 					_messaging.DisplayMessage("Teacher doesn't exist");
                 }
-            }
+            
         }
 
         private List<Grade> GradesBySubject(Student student, Subject subject)
         {
 			_messaging.DisplayMessage("Grades of Student" + student.Name);
-            using ( _dataBaseContext )
-            {
+            
 				List<Grade> grades = student.Grades.Where(g => g.Subject.Id == subject.Id).ToList();
                 Console.WriteLine(student.Name + " Grades");
                 foreach (var grade in grades)
@@ -141,7 +136,7 @@ namespace GoodPracticesChallenge
                 }
 				return grades;
 
-            }
+            
         }
         
     }

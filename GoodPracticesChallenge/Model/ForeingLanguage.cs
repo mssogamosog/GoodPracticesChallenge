@@ -24,7 +24,7 @@ namespace GoodPracticesChallenge
         override
         public string ToString()
         {
-            return "[" + this.Id.ToString() + " ," + this.Name + " ," + this.Description  + this.ConcreteLanguage.ToString() + "]";
+            return "[" + this.Id.ToString() + " , " + this.Name + " , " + this.Description + "  " + this.ConcreteLanguage.ToString() + "]";
         }
         public ConcreteLanguage ConcreteLanguage { get; set; }
     }

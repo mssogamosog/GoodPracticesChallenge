@@ -20,8 +20,7 @@ namespace GoodPracticesChallenge
 
         public void Create(int studentId, int subjectId, Period period, double value)
         {
-            using (_dataBaseContext)
-            {
+            
                 Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
                 Subject subject = _dataBaseContext.Subjects.Find(subjectId);
                 if (student != null && subject != null)
@@ -49,7 +48,7 @@ namespace GoodPracticesChallenge
                     _messaging.DisplayMessage("student or subject ID don't match");
                 }
 
-            }
+            
 
 
 
@@ -58,8 +57,7 @@ namespace GoodPracticesChallenge
         public void ModifyFinalGrade(int studentId, int subjectId)
         {
 
-            using (_dataBaseContext)
-            {
+            
                 Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
                 Subject subject = _dataBaseContext.Subjects.Find(subjectId);
                 var grades = student.Grades.Where(g => g.Subject == subject).ToList();
@@ -76,7 +74,7 @@ namespace GoodPracticesChallenge
                     this.Create(studentId, subjectId, Period.FINAL, finalValue);
                 }
 
-            }
+            
 
         }
 
