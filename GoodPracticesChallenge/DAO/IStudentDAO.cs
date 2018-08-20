@@ -9,6 +9,8 @@ namespace GoodPracticesChallenge
 		void GetGradesByTeacher(int teacherId);
 		List<Student> GetHeadmans();
 		Student Get(int studentId);
-		void Update(Student student);
+		void Update(int studentId, ForeingLanguage foreingLanguage);
+		void Update(int studentId, int foreingLanguageId);
+
 	}
 }

@@ -59,7 +59,7 @@ namespace GoodPracticesChallenge
 		public Student Get(int studentId )
 		{
 
-				Student student = _dataBaseContext.Students.Include( s  => s.ForeingLanguage ).Where(s => s.Id == studentId).FirstOrDefault();
+				Student student = _dataBaseContext.Students.Find(studentId);
 				return student;
 		
 		}
@@ -79,10 +79,15 @@ namespace GoodPracticesChallenge
             
         }
 
-		public void Update(Student student)
+		public void Update(int studentId ,ForeingLanguage foreingLanguage)
 		{
+			var stud = _dataBaseContext.Students.Find(studentId);
+			stud.ForeingLanguage = foreingLanguage;
 			_dataBaseContext.SaveChanges();
 		}
+
+
+
 
 		public void GetGradesByTeacher(int teacherId)
         {
@@ -138,6 +143,17 @@ namespace GoodPracticesChallenge
 
             
         }
-        
-    }
+
+		public void Update(int studentId, int foreingLanguageId)
+		{
+
+			var foreingLanguage = _dataBaseContext.ForeingLanguages.Find(foreingLanguageId);
+
+			var stud = _dataBaseContext.Students.Find(studentId);
+
+			stud.ForeingLanguage = foreingLanguage;
+
+			_dataBaseContext.SaveChanges();
+		}
+	}
 }

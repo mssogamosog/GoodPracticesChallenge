@@ -26,7 +26,9 @@ namespace GoodPracticesChallenge
 
 				_dataBaseContext.Subjects.Add(subject);
 				_dataBaseContext.SaveChanges();
-			
+			_messaging.DisplayMessage("Subject created");
+
+
 		}
 
 		public List<Subject> List()
