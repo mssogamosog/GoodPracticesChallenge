@@ -219,7 +219,7 @@ namespace GoodPracticesChallenge
                             studentId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Foreign Language Id:");
                             int foreign = Convert.ToInt32(Console.ReadLine());
-                            studentBusiness.AssingForeingLanguage(studentId, foreign);
+                            studentDAO.Update(studentId, foreign);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -230,6 +230,14 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("Course Id:");
                             courseId = Convert.ToInt32(Console.ReadLine());
                             courseDAO.AddSubjects(courseId, subjectId);
+                            Console.WriteLine("Press a key to continue....");
+                            Console.ReadKey();
+                            break;
+                        case "17":
+                            Console.WriteLine("17. Subjects By Teacher\n");
+                            Console.WriteLine("Course Id:");
+                            courseId = Convert.ToInt32(Console.ReadLine());
+                            subjectDAO.GetSubjectsByTeacher(courseId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;

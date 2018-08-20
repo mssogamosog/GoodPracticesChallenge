@@ -22,10 +22,10 @@ namespace GoodPracticesChallenge
 		public void CreateStudent(string name)
         {
             
-                Student student = new Student(name);
-                _dataBaseContext.Students.Add(student);
-                _dataBaseContext.SaveChanges();
-            
+            Student student = new Student(name);
+            _dataBaseContext.Students.Add(student);
+            _dataBaseContext.SaveChanges();
+            _messaging.DisplayMessage("Student Created");
         }
 
         public void DeleteStudent(int studentId)
@@ -67,15 +67,16 @@ namespace GoodPracticesChallenge
         public List<Student> GetHeadmans()
         {
             
-				var courses = _dataBaseContext.Courses.Include(s => s.Headman);
-				List<Student> students = new List<Student>();
-
-				foreach (var course in courses)
-                {
-					_messaging.DisplayMessage("[" + course.Headman.Name + " ," + course.Name + "]");
-					students.Add(course.Headman);
-                }
-				return students;
+			var courses = _dataBaseContext.Courses.Include(s => s.Headman);
+			List<Student> students = new List<Student>();
+            _messaging.DisplayMessage("The headmans are: \n");
+            foreach (var course in courses)
+            {
+                    
+			_messaging.DisplayMessage("[" + course.Headman.Name + " ," + course.Name + "]");
+			students.Add(course.Headman);
+            }
+			return students;
             
         }
 
@@ -85,9 +86,6 @@ namespace GoodPracticesChallenge
 			stud.ForeingLanguage = foreingLanguage;
 			_dataBaseContext.SaveChanges();
 		}
-
-
-
 
 		public void GetGradesByTeacher(int teacherId)
         {

@@ -22,10 +22,10 @@ namespace GoodPracticesChallenge
 		{
 
 			
-				Subject subject = new Subject(name, description);
+			Subject subject = new Subject(name, description);
 
-				_dataBaseContext.Subjects.Add(subject);
-				_dataBaseContext.SaveChanges();
+			_dataBaseContext.Subjects.Add(subject);
+			_dataBaseContext.SaveChanges();
 			_messaging.DisplayMessage("Subject created");
 
 
@@ -46,10 +46,9 @@ namespace GoodPracticesChallenge
 
 		public List<Subject> GetSubjectsByTeacher(int courseId)
 		{
-			
-				var courses = _dataBaseContext.Courses.Include(c => c.Subjects).Where(c => c.Id == courseId);
+				var courses = _dataBaseContext.Courses.Include(c => c.Subjects).Where(c => c.Id == courseId).ToList();
 				List<Subject> subjects = new List<Subject>();
-				if (courses != null)
+				if (courses.Count != 0)
 				{
 
 					foreach (var course in courses)
