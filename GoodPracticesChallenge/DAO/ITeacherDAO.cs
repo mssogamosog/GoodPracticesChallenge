@@ -11,7 +11,7 @@ namespace GoodPracticesChallenge
 		void Delete(int teacherId);
 		List<Teacher> List();
         IQueryable<Teacher> Get(int teacherId);
-        void Update(Teacher teacher, Course course);
-
+        void Update(int teacher, int course);
+        void Update(string messageError);
     }
 }

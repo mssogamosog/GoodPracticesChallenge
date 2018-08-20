@@ -145,13 +145,26 @@ namespace GoodPracticesChallenge
 		public void Update(int studentId, int foreingLanguageId)
 		{
 
-			var foreingLanguage = _dataBaseContext.ForeingLanguages.Find(foreingLanguageId);
+            var foreingLanguage = _dataBaseContext.ForeingLanguages.Where(f => f.Id == foreingLanguageId).FirstOrDefault();
+            if (foreingLanguage != null)
+            {
+                var stud = _dataBaseContext.Students.Find(studentId);
+                if (stud != null)
+                {
+                    stud.ForeingLanguage = foreingLanguage;
 
-			var stud = _dataBaseContext.Students.Find(studentId);
-
-			stud.ForeingLanguage = foreingLanguage;
-
-			_dataBaseContext.SaveChanges();
+                    _dataBaseContext.SaveChanges();
+                }
+                else
+                {
+                    _messaging.DisplayMessage("Student not found");
+                }                
+            }
+            else
+            {
+                _messaging.DisplayMessage("Foreign Language not found");
+            }
+			
 		}
 	}
 }

@@ -94,6 +94,11 @@
     <Compile Include="DAO\ICourseDAO.cs" />
     <Compile Include="DAO\IForeignLanguageDAO.cs" />
     <Compile Include="Business\IStudentBusiness.cs" />
+    <Compile Include="Migrations\201808202151411_CreateDb.cs" />
+    <Compile Include="Migrations\201808202151411_CreateDb.Designer.cs">
+      <DependentUpon>201808202151411_CreateDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utilities\IMessaging.cs" />
     <Compile Include="DAO\IStudentDAO.cs" />
     <Compile Include="DAO\ISubjectDAO.cs" />
@@ -102,11 +107,6 @@
     <Compile Include="Business\StudentBusiness.cs" />
     <Compile Include="Business\TeacherBusiness.cs" />
     <Compile Include="Utilities\Messaging.cs" />
-    <Compile Include="Migrations\201808051810298_CreateDB.cs" />
-    <Compile Include="Migrations\201808051810298_CreateDB.Designer.cs">
-      <DependentUpon>201808051810298_CreateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ConcreteLanguage.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="DAO\CourseDAO.cs" />
@@ -144,8 +144,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808051810298_CreateDB.resx">
-      <DependentUpon>201808051810298_CreateDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808202151411_CreateDb.resx">
+      <DependentUpon>201808202151411_CreateDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

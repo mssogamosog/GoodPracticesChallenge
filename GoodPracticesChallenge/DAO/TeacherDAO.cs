@@ -25,7 +25,7 @@ namespace GoodPracticesChallenge
                 Teacher teacher = new Teacher(name);
                 _dataBaseContext.Teachers.Add(teacher);
                 _dataBaseContext.SaveChanges();
-            
+            _messaging.DisplayMessage("Teacher Created");
         }
 
         public void Delete(int teacherId)
@@ -34,7 +34,7 @@ namespace GoodPracticesChallenge
                 Teacher teacher = _dataBaseContext.Teachers.Where(t => t.Id == teacherId).FirstOrDefault();
                 if (teacher == null)
                 {
-                    Console.WriteLine("The teacher doesn't exists.");
+                _messaging.DisplayMessage("The teacher doesn't exists.");
                 }
                 else
                 {
@@ -42,12 +42,12 @@ namespace GoodPracticesChallenge
                     {
                         _dataBaseContext.Teachers.Remove(teacher);
                         _dataBaseContext.SaveChanges();
-                        Console.WriteLine("The Teacher  deleted satisfactorily");
+                        _messaging.DisplayMessage("The Teacher  deleted satisfactorily");
 
                     }
                     catch (System.Data.Entity.Infrastructure.DbUpdateException)
                     {
-                        Console.WriteLine("The Teacher can't be deleted, there are references to it");
+                    _messaging.DisplayMessage("The Teacher can't be deleted, there are references to it");
                     }
 
                 }
@@ -62,7 +62,7 @@ namespace GoodPracticesChallenge
 
 				foreach (var teacher in teachers)
 				{
-					Console.WriteLine(teacher.ToString());
+					_messaging.DisplayMessage(teacher.ToString());
 				}
 				return teachers;
 		
@@ -72,10 +72,17 @@ namespace GoodPracticesChallenge
 		public Course CourseByTeacher(int teacherId)
 		{
 			
-				Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
-				_messaging.DisplayMessage("[" + teacher.Course.Name + " ," + teacher.Name + "]");
-				return teacher.Course;
-			
+			Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
+            if (teacher != null)
+            {
+                _messaging.DisplayMessage("[" + teacher.Course.Name + " ," + teacher.Name + "]");
+                return teacher.Course;
+            }
+            else
+            {
+                _messaging.DisplayMessage("Teacher not found");
+                return null;
+            }
 
 		}
 
@@ -90,15 +97,16 @@ namespace GoodPracticesChallenge
 					{
 						teacher.Subjects.Add(subject);
 						_dataBaseContext.SaveChanges();
-					}
+                    _messaging.DisplayMessage("Subject added");
+                }
 					else
 					{
-						Console.WriteLine("Subject already assigned");
+                    _messaging.DisplayMessage("Subject already assigned");
 					}
 				}
 				else
 				{
-					Console.WriteLine("Id");
+                _messaging.DisplayMessage("Ids not Found");
 				}
 			
 
@@ -110,10 +118,17 @@ namespace GoodPracticesChallenge
 			return teacher;
 		}
 
-		public void Update(Teacher teacher, Course course)
+		public void Update(int teacherId, int courseId)
 		{
+            Course course = _dataBaseContext.Courses.Include(c => c.Students).Where(c => c.Id == courseId).FirstOrDefault();
+            Teacher teacher = _dataBaseContext.Teachers.Include(t => t.Course).Where(t => t.Id == teacherId).FirstOrDefault();
             teacher.Course = course;
             _dataBaseContext.SaveChanges();
 		}
-	}
+        public void Update(string messageError)
+        {
+            _messaging.DisplayMessage(messageError);
+        }
+
+    }
 }

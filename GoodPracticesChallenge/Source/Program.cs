@@ -69,6 +69,9 @@ namespace GoodPracticesChallenge
                         "14. Assign student to course.\n" +
                         "15. Assign Foreign language to student.\n" +
                         "16. Assign subject to course.\n" +
+                        "17.Subjects By Teacher\n" +
+                        "18. Delete Teacher\n"+
+                        "19.Assing Course to Teacher\n"+
                         "0. EXIT\n\n" +
                         "########################################");
                     option = Console.ReadLine();
@@ -238,6 +241,24 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("Course Id:");
                             courseId = Convert.ToInt32(Console.ReadLine());
                             subjectDAO.GetSubjectsByTeacher(courseId);
+                            Console.WriteLine("Press a key to continue....");
+                            Console.ReadKey();
+                            break;
+                        case "18":
+                            Console.WriteLine("18. Delete Teacher\n");
+                            Console.WriteLine("TeacherId Id:");
+                            teacherId = Convert.ToInt32(Console.ReadLine());
+                            teacherDAO.Delete(teacherId);
+                            Console.WriteLine("Press a key to continue....");
+                            Console.ReadKey();
+                            break;
+                        case "19":
+                            Console.WriteLine("19.Assing Course to Teacher\n");
+                            Console.WriteLine("TeacherId Id:");
+                            teacherId = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("CourseId Id:");
+                            courseId = Convert.ToInt32(Console.ReadLine());
+                            teacherBusiness.AssingCourse(teacherId, courseId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;

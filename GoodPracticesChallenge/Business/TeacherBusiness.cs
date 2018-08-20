@@ -20,12 +20,16 @@ namespace GoodPracticesChallenge
 		public void AssingCourse(int teacherId, int courseId)
 		{
 
-            IQueryable<Course> course = _courseDAO.Get(courseId);
-            IQueryable<Teacher> teacher = _teacherDAO.Get(teacherId);
-			if (teacher != null && course != null)
-			{
-				_teacherDAO.Update(teacher.FirstOrDefault(),course.FirstOrDefault());
-			}
+            Course course = _courseDAO.Get(courseId).FirstOrDefault();
+            Teacher teacher = _teacherDAO.Get(teacherId).FirstOrDefault();
+            if (teacher != null && course != null)
+            {
+                _teacherDAO.Update(teacherId, courseId);
+            }
+            else
+            {
+                _teacherDAO.Update("Ids didn't match");
+            }
 
 
 		}

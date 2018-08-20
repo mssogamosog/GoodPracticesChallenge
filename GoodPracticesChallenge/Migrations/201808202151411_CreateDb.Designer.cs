@@ -7,13 +7,13 @@ namespace GoodPracticesChallenge.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreateDB : IMigrationMetadata
+    public sealed partial class CreateDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808051810298_CreateDB"; }
+            get { return "201808202151411_CreateDb"; }
         }
         
         string IMigrationMetadata.Source
