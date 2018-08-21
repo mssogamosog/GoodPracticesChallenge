@@ -18,11 +18,11 @@ namespace GoodPracticesChallenge
             builder.RegisterType<StudentBusiness>().As<IStudentBusiness>();
             builder.RegisterType<Messaging>().As<IMessaging>();
             builder.RegisterType<TeacherBusiness>().As<ITeacherBusiness>();
-            builder.RegisterType<CourseDAO>().As<ICourseDAO>();
-            builder.RegisterType<ForeignLanguageDAO>().As<IForeignLanguageDAO>();
-            builder.RegisterType<StudentDAO>().As<IStudentDAO>();
-            builder.RegisterType<SubjectDAO>().As<ISubjectDAO>();
-            builder.RegisterType<TeacherDAO>().As<ITeacherDAO>();
+            builder.RegisterType<CourseController>().As<ICourseController>();
+            builder.RegisterType<ForeignLanguageController>().As<IForeignLanguageController>();
+            builder.RegisterType<StudentController>().As<IStudentController>();
+            builder.RegisterType<SubjectController>().As<ISubjectController>();
+            builder.RegisterType<TeacherController>().As<ITeacherController>();
             builder.RegisterType<DataBaseContext>().As<IDataBaseContext>();
 
             container = builder.Build();

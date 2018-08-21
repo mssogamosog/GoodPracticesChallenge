@@ -2,7 +2,7 @@
 
 namespace GoodPracticesChallenge
 {
-	interface ISubjectDAO
+	interface ISubjectController
 	{
 		void Create(string name, string description);
 		List<Subject> List();

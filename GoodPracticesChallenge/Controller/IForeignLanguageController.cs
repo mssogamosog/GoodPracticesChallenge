@@ -2,10 +2,10 @@
 
 namespace GoodPracticesChallenge
 {
-	public interface IForeignLanguageDAO
+	public interface IForeignLanguageController
 	{
 		void Create(ConcreteLanguage concreteLanguage, string name, string description);
-		List<ForeingLanguage> List();
-		ForeingLanguage Get(int foreingLanguageId);
+		List<ForeignLanguage> List();
+		ForeignLanguage Get(int foreingLanguageId);
 	}
 }

@@ -91,8 +91,8 @@
   <ItemGroup>
     <Compile Include="Business\GradeBusiness.cs" />
     <Compile Include="Business\IGradeBusiness.cs" />
-    <Compile Include="DAO\ICourseDAO.cs" />
-    <Compile Include="DAO\IForeignLanguageDAO.cs" />
+    <Compile Include="Controller\ICourseController.cs" />
+    <Compile Include="Controller\IForeignLanguageController.cs" />
     <Compile Include="Business\IStudentBusiness.cs" />
     <Compile Include="Migrations\201808202151411_CreateDb.cs" />
     <Compile Include="Migrations\201808202151411_CreateDb.Designer.cs">
@@ -100,31 +100,31 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Utilities\IMessaging.cs" />
-    <Compile Include="DAO\IStudentDAO.cs" />
-    <Compile Include="DAO\ISubjectDAO.cs" />
+    <Compile Include="Controller\IStudentController.cs" />
+    <Compile Include="Controller\ISubjectController.cs" />
     <Compile Include="Business\ITeacherBusiness.cs" />
-    <Compile Include="DAO\ITeacherDAO.cs" />
+    <Compile Include="Controller\ITeacherController.cs" />
     <Compile Include="Business\StudentBusiness.cs" />
     <Compile Include="Business\TeacherBusiness.cs" />
     <Compile Include="Utilities\Messaging.cs" />
     <Compile Include="Model\ConcreteLanguage.cs" />
     <Compile Include="Model\Course.cs" />
-    <Compile Include="DAO\CourseDAO.cs" />
+    <Compile Include="Controller\CourseController.cs" />
     <Compile Include="Utilities\DataBaseContext.cs" />
     <Compile Include="Model\ForeingLanguage.cs" />
-    <Compile Include="DAO\ForeignLanguageDAO.cs" />
+    <Compile Include="Controller\ForeignLanguageController.cs" />
     <Compile Include="Model\Grade.cs" />
     <Compile Include="Utilities\IDataBaseContext.cs" />
     <Compile Include="Model\Period.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Student.cs" />
-    <Compile Include="DAO\StudentDAO.cs" />
+    <Compile Include="Controller\StudentController.cs" />
     <Compile Include="Model\Subject.cs" />
     <Compile Include="Model\Person.cs" />
-    <Compile Include="DAO\SubjectDAO.cs" />
+    <Compile Include="Controller\SubjectController.cs" />
     <Compile Include="Model\Teacher.cs" />
-    <Compile Include="DAO\TeacherDAO.cs" />
+    <Compile Include="Controller\TeacherController.cs" />
     <Compile Include="Utilities\RegistDependencies.cs" />
   </ItemGroup>
   <ItemGroup>

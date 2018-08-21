@@ -18,11 +18,11 @@ namespace GoodPracticesChallenge
                 var messaging = scope.Resolve<IMessaging>();
                 var studentBusiness = scope.Resolve<IStudentBusiness>();
                 var teacherBusiness = scope.Resolve<ITeacherBusiness>();
-                var courseDAO = scope.Resolve<ICourseDAO>();
-                var foreignLanguageDAO = scope.Resolve<IForeignLanguageDAO>();
-                var studentDAO = scope.Resolve<IStudentDAO>();
-                var subjectDAO = scope.Resolve<ISubjectDAO>();
-                var teacherDAO = scope.Resolve<ITeacherDAO>();
+                var courseController = scope.Resolve<ICourseController>();
+                var foreignLanguageController = scope.Resolve<IForeignLanguageController>();
+                var studentController = scope.Resolve<IStudentController>();
+                var subjectController = scope.Resolve<ISubjectController>();
+                var teacherController = scope.Resolve<ITeacherController>();
                 var dataBaseContext = scope.Resolve<IDataBaseContext>();
                 var gradeBusiness = scope.Resolve<IGradeBusiness>();
 
@@ -84,7 +84,7 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("1. AddStudent.\n");
                             Console.WriteLine("Name:");
                             string name = Console.ReadLine();
-                            studentDAO.CreateStudent(name);
+                            studentController.CreateStudent(name);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -92,7 +92,7 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("2. AddTeacher.\n");
                             Console.WriteLine("Name:");
                             name = Console.ReadLine();
-                            teacherDAO.Create(name);
+                            teacherController.Create(name);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -102,7 +102,7 @@ namespace GoodPracticesChallenge
                             name = Console.ReadLine();
                             Console.WriteLine("description:");
                             string description = Console.ReadLine();
-                            subjectDAO.Create(name,description);
+                            subjectController.Create(name,description);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -118,7 +118,7 @@ namespace GoodPracticesChallenge
                                 "PORTUGUESE = 3\n" +
                                 "FRENCH = 4");
                             int language = Convert.ToInt32(Console.ReadLine());
-                            foreignLanguageDAO.Create((ConcreteLanguage)Enum.ToObject(typeof(ConcreteLanguage), language), name, description);
+                            foreignLanguageController.Create((ConcreteLanguage)Enum.ToObject(typeof(ConcreteLanguage), language), name, description);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -128,7 +128,7 @@ namespace GoodPracticesChallenge
                             name = Console.ReadLine();
                             Console.WriteLine("Headman Id:");
                             int headmanId = Convert.ToInt32(Console.ReadLine());
-                            courseDAO.Create(name, headmanId);
+                            courseController.Create(name, headmanId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -138,7 +138,7 @@ namespace GoodPracticesChallenge
                             int courseId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Headman Id:");
                             int headmanId2 = Convert.ToInt32(Console.ReadLine());
-                            courseDAO.UpdateHeadman(courseId, headmanId2);
+                            courseController.UpdateHeadman(courseId, headmanId2);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -163,13 +163,13 @@ namespace GoodPracticesChallenge
                             break;
                         case "8":
                             Console.WriteLine("8. List all courses.\n");
-                            courseDAO.List();
+                            courseController.List();
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
                         case "9":
                             Console.WriteLine("9. List all subjects.\n");
-                            subjectDAO.List();
+                            subjectController.List();
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -178,13 +178,13 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("10. List all grades of the students.\n");
                             Console.WriteLine("Teacher Id:");
                             int teacherId = Convert.ToInt32(Console.ReadLine());
-                            studentDAO.GetGradesByTeacher(teacherId);
+                            studentController.GetGradesByTeacher(teacherId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
                         case "11":
                             Console.WriteLine("11. List all headmans.\n");
-                            studentDAO.GetHeadmans();
+                            studentController.GetHeadmans();
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -192,7 +192,7 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("12. Delete a student.\n");
                             Console.WriteLine("Student Id:");
                             int studentId = Convert.ToInt32(Console.ReadLine());
-                            studentDAO.DeleteStudent(studentId);
+                            studentController.DeleteStudent(studentId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -202,7 +202,7 @@ namespace GoodPracticesChallenge
                             int teacherId2 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Subject Id");
                             int subjectId2 = Convert.ToInt32(Console.ReadLine());
-                            teacherDAO.AddSubject(teacherId2, subjectId2);
+                            teacherController.AddSubject(teacherId2, subjectId2);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -212,7 +212,7 @@ namespace GoodPracticesChallenge
                             studentId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Course Id");
                             courseId = Convert.ToInt32(Console.ReadLine());
-                            courseDAO.AddStudents(courseId,studentId);
+                            courseController.AddStudents(courseId,studentId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -222,7 +222,7 @@ namespace GoodPracticesChallenge
                             studentId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Foreign Language Id:");
                             int foreign = Convert.ToInt32(Console.ReadLine());
-                            studentDAO.Update(studentId, foreign);
+                            studentController.AssingForeingLanguage(studentId, foreign);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -232,7 +232,7 @@ namespace GoodPracticesChallenge
                             subjectId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Course Id:");
                             courseId = Convert.ToInt32(Console.ReadLine());
-                            courseDAO.AddSubjects(courseId, subjectId);
+                            courseController.AddSubjects(courseId, subjectId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -240,7 +240,7 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("17. Subjects By Teacher\n");
                             Console.WriteLine("Course Id:");
                             courseId = Convert.ToInt32(Console.ReadLine());
-                            subjectDAO.GetSubjectsByTeacher(courseId);
+                            subjectController.GetSubjectsByTeacher(courseId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;
@@ -248,7 +248,7 @@ namespace GoodPracticesChallenge
                             Console.WriteLine("18. Delete Teacher\n");
                             Console.WriteLine("TeacherId Id:");
                             teacherId = Convert.ToInt32(Console.ReadLine());
-                            teacherDAO.Delete(teacherId);
+                            teacherController.Delete(teacherId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
                             break;

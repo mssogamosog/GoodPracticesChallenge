@@ -81,11 +81,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForeignLanguageControllerTest.cs" />
     <Compile Include="GeneralMock.cs" />
     <Compile Include="SetsForTesting.cs" />
-    <Compile Include="SubjectDAOTest.cs" />
+    <Compile Include="SubjectControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeacherDAOTest.cs" />
+    <Compile Include="TeacherControllerTest.cs" />
+    <Compile Include="StudentControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

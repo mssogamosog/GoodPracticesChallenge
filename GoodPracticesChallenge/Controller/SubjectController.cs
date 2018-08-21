@@ -7,12 +7,12 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-	public class SubjectDAO : ISubjectDAO
+	public class SubjectController : ISubjectController
 	{
 		public IDataBaseContext _dataBaseContext;
 		IMessaging _messaging;
 
-		public SubjectDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
+		public SubjectController(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
 			_messaging = messaging;

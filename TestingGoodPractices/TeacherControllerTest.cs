@@ -11,7 +11,7 @@ using Moq;
 namespace TestingGoodPractices
 {
     [TestClass]
-    public class TeacherDAOTest
+    public class TeacherControllerTest
     {
 
         [TestMethod]
@@ -23,7 +23,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             var expected = SetsForTesting.SampleTeachers();
             //when
             var actual = cls.List();
@@ -47,7 +47,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             cls.Create(teacher.Name);
             //then
@@ -64,7 +64,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             cls.Delete(1);
             //then
@@ -79,7 +79,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             cls.Delete(8);
             //then
@@ -95,7 +95,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             Course actual  =  cls.CourseByTeacher(1);
             //then
@@ -113,7 +113,7 @@ namespace TestingGoodPractices
             var mockMessaging = new Mock<IMessaging>();
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Teachers).Returns(mockSet.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             Course actual = cls.CourseByTeacher(8);
             //then
@@ -121,26 +121,62 @@ namespace TestingGoodPractices
             mockMessaging.Verify(m => m.DisplayMessage("Teacher not found"), Times.Once());
         }
 
-        //[TestMethod]
-        //public void AddSubject_Is_Successful()
-        //{
-        //    //given
-        //    Subject subject = SetsForTesting.SampleSubjects()[0];
-        //    Teacher teacher = SetsForTesting.SampleTeachers()[0];
-        //    var mockSetTeachers = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleTeachers());
-        //    var mockSetSubjects = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleSubjects());
-        //    var mockMessaging = new Mock<IMessaging>();
-        //    var mockContext = new Mock<IDataBaseContext>();
-        //    mockContext.Setup(c => c.Subjects).Returns(mockSetSubjects.Object);
-        //    mockContext.Setup(c => c.Teachers).Returns(mockSetTeachers.Object);
+        [TestMethod]
+        public void AddSubject_IsNot_Necessary()
+        {
+            //given
+            Subject subject = SetsForTesting.SampleSubjects()[0];
+            Teacher teacher = SetsForTesting.SampleTeachers()[0];
+            var mockSetTeachers = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleTeachers());
+            var mockSetSubjects = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleSubjects());
+            var mockMessaging = new Mock<IMessaging>();
+            var mockContext = new Mock<IDataBaseContext>();
+            mockContext.Setup(c => c.Subjects).Returns(mockSetSubjects.Object);
+            mockContext.Setup(c => c.Teachers).Returns(mockSetTeachers.Object);
 
-        //    var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
-        //    //when
-        //    cls.AddSubject(teacher.Id,subject.Id);
-        //    //then
-        //    mockMessaging.Verify(m => m.DisplayMessage("Subject added"), Times.Once());
-        //    mockSetSubjects.Verify(m => m.Find(7), Times.Once());
-        //}
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
+            //when
+            cls.AddSubject(teacher.Id, subject.Id);
+            //then
+            mockMessaging.Verify(m => m.DisplayMessage("Subject already assigned"), Times.Once());
+        }
+        [TestMethod]
+        public void AddSubject_Is_Successful()
+        {
+            //given
+            Subject subject = SetsForTesting.SampleSubjects()[6];
+            Teacher teacher = SetsForTesting.SampleTeachers()[0];
+            var mockSetTeachers = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleTeachers());
+            var mockSetSubjects = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleSubjects());
+            var mockMessaging = new Mock<IMessaging>();
+            var mockContext = new Mock<IDataBaseContext>();
+            mockContext.Setup(c => c.Subjects).Returns(mockSetSubjects.Object);
+            mockContext.Setup(c => c.Teachers).Returns(mockSetTeachers.Object);
+
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
+            //when
+            cls.AddSubject(teacher.Id, subject.Id);
+            //then
+            mockContext.Verify(m => m.SaveChanges(), Times.Once());
+            mockMessaging.Verify(m => m.DisplayMessage("Subject added"), Times.Once());
+        }
+        [TestMethod]
+        public void AddSubject_Ids_NotFound()
+        {
+            //given
+            var mockSetTeachers = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleTeachers());
+            var mockSetSubjects = GeneralMock.GetQueryableMockDbSet(SetsForTesting.SampleSubjects());
+            var mockMessaging = new Mock<IMessaging>();
+            var mockContext = new Mock<IDataBaseContext>();
+            mockContext.Setup(c => c.Subjects).Returns(mockSetSubjects.Object);
+            mockContext.Setup(c => c.Teachers).Returns(mockSetTeachers.Object);
+
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
+            //when
+            cls.AddSubject(9, 10);
+            //then
+            mockMessaging.Verify(m => m.DisplayMessage("Ids not Found"), Times.Once());
+        }
         [TestMethod]
         public void AssingCourse_Is_Successful()
         {
@@ -153,7 +189,7 @@ namespace TestingGoodPractices
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(t => t.Teachers).Returns(mockSetTeachers.Object);
             mockContext.Setup(c => c.Courses).Returns(mockSetCourses.Object);
-            var cls = new TeacherDAO(mockContext.Object, mockMessaging.Object);
+            var cls = new TeacherController(mockContext.Object, mockMessaging.Object);
             //when
             cls.Update(teacher.Id ,course.Id);
             //then

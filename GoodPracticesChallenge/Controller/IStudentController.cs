@@ -2,15 +2,15 @@
 
 namespace GoodPracticesChallenge
 {
-	public interface IStudentDAO
+	public interface IStudentController
 	{
 		void CreateStudent(string name);
 		void DeleteStudent(int studentId);
 		void GetGradesByTeacher(int teacherId);
 		List<Student> GetHeadmans();
 		Student Get(int studentId);
-		void Update(int studentId, ForeingLanguage foreingLanguage);
-		void Update(int studentId, int foreingLanguageId);
+		void Update(int studentId, ForeignLanguage foreingLanguage);
+		void AssingForeingLanguage(int studentId, int foreingLanguageId);
 
 	}
 }

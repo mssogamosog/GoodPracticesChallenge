@@ -10,7 +10,7 @@ namespace GoodPracticesChallenge
 	{
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<ForeingLanguage> ForeingLanguages { get; set; }
+        public DbSet<ForeignLanguage> ForeingLanguages { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Grade> Grades { get; set; }

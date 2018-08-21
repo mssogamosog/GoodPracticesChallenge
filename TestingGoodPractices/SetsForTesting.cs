@@ -46,7 +46,7 @@ namespace TestingGoodPractices
         {
             List<Course> result = new List<Course>
             {
-                new Course {Name =" Course 1", Id = 1 ,Subjects = new List<Subject>()}
+                new Course {Name =" Course 1", Id = 1 ,Subjects = new List<Subject>(),Headman = SampleStudents()[0] }
             };
             result[0].Subjects.Add(SampleSubjects()[0]);
             result[0].Subjects.Add(SampleSubjects()[1]);
@@ -54,6 +54,30 @@ namespace TestingGoodPractices
             result[0].Subjects.Add(SampleSubjects()[4]);
             result[0].Subjects.Add(SampleSubjects()[5]);
             return result;
+        }
+
+        public static List<Student> SampleStudents()
+        {
+            List<Student> result = new List<Student>
+            {
+                new Student {Name =" Student 1", Id = 1 ,Grades = new List<Grade>{ new Grade { Id =1 , Period = Period.FIRST , Subject = SampleSubjects()[0] , Value = 4.5} } },
+                new Student {Name =" Student 2", Id = 2 },
+                new Student {Name =" Student 3", Id = 3 },
+                new Student {Name =" Student 4", Id = 4 }
+            };
+            return result;
+        }
+
+        public static List<ForeignLanguage> SampleForeignLanguages()
+        {
+            List<ForeignLanguage> output = new List<ForeignLanguage>
+            {
+                new ForeignLanguage{Name ="Language Test1" , Description = "Description 1", Id = 1,ConcreteLanguage = ConcreteLanguage.ENGLISH},
+                new ForeignLanguage{Name ="Language 2" , Description = "Description 2", Id = 2,ConcreteLanguage = ConcreteLanguage.SPANISH},
+                new ForeignLanguage{Name ="Language 3" , Description = "Description 3", Id = 3,ConcreteLanguage = ConcreteLanguage.PORTUGUESE},
+                new ForeignLanguage{Name ="Language 4" , Description = "Description 4", Id = 4,ConcreteLanguage = ConcreteLanguage.FRENCH},
+            };
+            return output;
         }
     }
 }

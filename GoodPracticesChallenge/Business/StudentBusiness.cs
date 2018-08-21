@@ -9,10 +9,10 @@ namespace GoodPracticesChallenge
 	public class StudentBusiness : IStudentBusiness
 
 	{
-		IForeignLanguageDAO _foreignLanguageDAO;
-		IStudentDAO _studentDAO;
+		IForeignLanguageController _foreignLanguageDAO;
+		IStudentController _studentDAO;
 
-		public StudentBusiness(IForeignLanguageDAO foreignLanguageDAO, IStudentDAO studentDAO)
+		public StudentBusiness(IForeignLanguageController foreignLanguageDAO, IStudentController studentDAO)
 		{
 			_foreignLanguageDAO = foreignLanguageDAO;
 			_studentDAO = studentDAO;

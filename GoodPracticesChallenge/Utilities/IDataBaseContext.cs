@@ -8,7 +8,7 @@ namespace GoodPracticesChallenge
 	{
 		
 		DbSet<Course> Courses { get; set; }
-		DbSet<ForeingLanguage> ForeingLanguages { get; set; }
+		DbSet<ForeignLanguage> ForeingLanguages { get; set; }
 		DbSet<Grade> Grades { get; set; }
 		DbSet<Student> Students { get; set; }
 		DbSet<Subject> Subjects { get; set; }

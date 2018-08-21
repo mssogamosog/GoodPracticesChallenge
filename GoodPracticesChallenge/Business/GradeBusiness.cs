@@ -22,7 +22,7 @@ namespace GoodPracticesChallenge
         {
             
                 Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
-                Subject subject = _dataBaseContext.Subjects.Find(subjectId);
+                Subject subject = _dataBaseContext.Subjects.Where(s => s.Id == subjectId).FirstOrDefault();
                 if (student != null && subject != null)
                 {
 

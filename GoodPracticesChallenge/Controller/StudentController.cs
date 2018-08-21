@@ -7,13 +7,13 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-    public class StudentDAO : IStudentDAO
+    public class StudentController : IStudentController
 	{
 		IDataBaseContext _dataBaseContext;
 
 		IMessaging _messaging;
 
-		public StudentDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
+		public StudentController(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
 			_messaging = messaging;
@@ -30,18 +30,19 @@ namespace GoodPracticesChallenge
 
         public void DeleteStudent(int studentId)
         {
-            
-                Student student = _dataBaseContext.Students.Find(studentId);
+
+            Student student = _dataBaseContext.Students.Where(s => s.Id == studentId).FirstOrDefault();
                 if (student != null)
                 {
                     try
                     {
                         _dataBaseContext.Students.Remove(student);
                         _dataBaseContext.SaveChanges();
+                    _messaging.DisplayMessage("The Student was deleted");
                     }
-                    catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException )
                     {
-						_messaging.DisplayMessage("References to this student must be delted firts, can not be deleted" + e.Message);
+						_messaging.DisplayMessage("References to this student must be deleted firts, can not be deleted");
                     }
 					catch(Exception e)
 					{
@@ -80,9 +81,9 @@ namespace GoodPracticesChallenge
             
         }
 
-		public void Update(int studentId ,ForeingLanguage foreingLanguage)
+		public void Update(int studentId ,ForeignLanguage foreingLanguage)
 		{
-			var stud = _dataBaseContext.Students.Find(studentId);
+			var stud = _dataBaseContext.Students.Where(s => s.Id == studentId).FirstOrDefault();
 			stud.ForeingLanguage = foreingLanguage;
 			_dataBaseContext.SaveChanges();
 		}
@@ -97,7 +98,7 @@ namespace GoodPracticesChallenge
                     foreach (var subject in subjects)
                     {
 						_messaging.DisplayMessage("Grades of " + subject.Name);
-                        if (subject.GetType() == typeof(ForeingLanguage))
+                        if (subject.GetType() == typeof(ForeignLanguage))
                         {
                             var students = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.ForeingLanguage.Id == subject.Id).ToList();
                             foreach (var student in students)
@@ -142,7 +143,7 @@ namespace GoodPracticesChallenge
             
         }
 
-		public void Update(int studentId, int foreingLanguageId)
+		public void AssingForeingLanguage(int studentId, int foreingLanguageId)
 		{
 
             var foreingLanguage = _dataBaseContext.ForeingLanguages.Where(f => f.Id == foreingLanguageId).FirstOrDefault();

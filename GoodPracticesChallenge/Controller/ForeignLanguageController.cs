@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GoodPracticesChallenge
 {
-    class ForeignLanguageDAO : IForeignLanguageDAO
+    public class ForeignLanguageController : IForeignLanguageController
 	{
 		IDataBaseContext _dataBaseContext;
 		IMessaging _messaging;
 
-		public ForeignLanguageDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
+		public ForeignLanguageController(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
 			_messaging = messaging;
@@ -19,15 +19,14 @@ namespace GoodPracticesChallenge
 
 		public void Create(ConcreteLanguage concreteLanguage,string name, string description)
         {
-
            
-                ForeingLanguage foreingLanguage = new ForeingLanguage(concreteLanguage, name, description);
-                _dataBaseContext .Subjects.Add(foreingLanguage);
-                _dataBaseContext .SaveChanges();
-            
+            ForeignLanguage foreingLanguage = new ForeignLanguage(concreteLanguage, name, description);
+            _dataBaseContext .ForeingLanguages.Add(foreingLanguage);
+            _dataBaseContext .SaveChanges();
+            _messaging.DisplayMessage("Language created"); 
         }
 
-        public List<ForeingLanguage> List()
+        public List<ForeignLanguage> List()
         {
           
                 var foreingLanguages = _dataBaseContext.ForeingLanguages.ToList();
@@ -40,10 +39,10 @@ namespace GoodPracticesChallenge
 			
         }
 
-		public ForeingLanguage Get(int foreignLanguageId)
+		public ForeignLanguage Get(int foreignLanguageId)
 		{
 			
-				var foreignLanguage = _dataBaseContext.ForeingLanguages.Find(foreignLanguageId);
+				var foreignLanguage = _dataBaseContext.ForeingLanguages.Where(f => f.Id == foreignLanguageId).FirstOrDefault();
 				return foreignLanguage;
 		}
 	}

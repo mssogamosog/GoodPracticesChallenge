@@ -8,7 +8,7 @@ namespace GoodPracticesChallenge
 {
     public class Student: Person
     {
-        public Student(string name, ForeingLanguage foreingLanguage) : base ( name )
+        public Student(string name, ForeignLanguage foreingLanguage) : base ( name )
         {
             this.ForeingLanguage = foreingLanguage;
             this.Name = Name;
@@ -21,7 +21,7 @@ namespace GoodPracticesChallenge
         public Student() 
         {     
         }
-        public ForeingLanguage ForeingLanguage { get; set; }
+        public ForeignLanguage ForeingLanguage { get; set; }
         public List<Grade> Grades { get; set; }
     }
 }

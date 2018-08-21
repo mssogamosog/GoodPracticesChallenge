@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace GoodPracticesChallenge
 {
-	public interface ITeacherDAO
+	public interface ITeacherController
 	{
 		void AddSubject(int teacherId, int subjectId);
 		Course CourseByTeacher(int teacherId);

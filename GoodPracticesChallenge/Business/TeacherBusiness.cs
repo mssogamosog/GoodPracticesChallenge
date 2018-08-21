@@ -8,10 +8,10 @@ namespace GoodPracticesChallenge
 {
 	public class TeacherBusiness : ITeacherBusiness
 	{
-		ITeacherDAO _teacherDAO;
-		ICourseDAO _courseDAO;
+		ITeacherController _teacherDAO;
+		ICourseController _courseDAO;
 
-		public TeacherBusiness(ITeacherDAO teacherDAO, ICourseDAO courseDAO)
+		public TeacherBusiness(ITeacherController teacherDAO, ICourseController courseDAO)
 		{
 			_teacherDAO = teacherDAO;
 			_courseDAO = courseDAO;

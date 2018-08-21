@@ -7,13 +7,13 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-    public class TeacherDAO : ITeacherDAO
+    public class TeacherController : ITeacherController
 	{
 		IDataBaseContext _dataBaseContext;
 
 		IMessaging _messaging;
 
-		public TeacherDAO(IDataBaseContext dataBaseContext, IMessaging messaging)
+		public TeacherController(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
 			_messaging = messaging;
@@ -89,25 +89,26 @@ namespace GoodPracticesChallenge
 		public void AddSubject(int teacherId, int subjectId)
 		{
 			
-				Teacher teacher = _dataBaseContext.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
-				Subject subject = _dataBaseContext.Subjects.Find(subjectId);
-				if (teacher != null && subject != null)
+			Teacher teacher = _dataBaseContext.Teachers.Include(s => s.Subjects).Where(t => t.Id == teacherId).FirstOrDefault();
+			Subject subject = _dataBaseContext.Subjects.Where(s => s.Id == subjectId).FirstOrDefault();
+			if (teacher != null && subject != null)
 				{
-					if (!teacher.Subjects.Contains(subject))
-					{
-						teacher.Subjects.Add(subject);
-						_dataBaseContext.SaveChanges();
-                    _messaging.DisplayMessage("Subject added");
-                }
-					else
-					{
+				if (teacher.Subjects.Where(s => s.Id == subjectId).FirstOrDefault() != null)
+				{
                     _messaging.DisplayMessage("Subject already assigned");
-					}
-				}
+                }
 				else
 				{
-                _messaging.DisplayMessage("Ids not Found");
+                    teacher.Subjects.Add(subject);
+                    _dataBaseContext.SaveChanges();
+                    _messaging.DisplayMessage("Subject added");
+                    
 				}
+			}
+			else
+			{
+                _messaging.DisplayMessage("Ids not Found");
+			}
 			
 
 		}

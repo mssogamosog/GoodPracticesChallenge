@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GoodPracticesChallenge
 {
-    public class ForeingLanguage : Subject
+    public class ForeignLanguage : Subject
     {
-        public ForeingLanguage()
+        public ForeignLanguage()
         {
         }
 
-        public ForeingLanguage( ConcreteLanguage concreteLanguage , string name, string description) : base( name, description)
+        public ForeignLanguage( ConcreteLanguage concreteLanguage , string name, string description) : base( name, description)
         {
             
             this.ConcreteLanguage = concreteLanguage;
