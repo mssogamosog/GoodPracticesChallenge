@@ -27,11 +27,11 @@ namespace GoodPracticesChallenge
                 {
 
                     Grade grade = new Grade(value, period, subject);
-                    Grade currentGrade = student.Grades.Where(g => g.Subject == subject && g.Period == period).FirstOrDefault();
+                    Grade currentGrade = student.Grades.Where(g => g.Subject.Id == subject.Id && g.Period == period).FirstOrDefault();
                     if (currentGrade != null)
                     {
                         currentGrade.Value = value;
-                        _messaging.DisplayMessage("Grade exists");
+                        _messaging.DisplayMessage("Grade Modified");
                         _dataBaseContext.SaveChanges();
                     }
                     else
@@ -56,23 +56,21 @@ namespace GoodPracticesChallenge
 
         public void ModifyFinalGrade(int studentId, int subjectId)
         {
-
-            
-                Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
-                Subject subject = _dataBaseContext.Subjects.Find(subjectId);
-                var grades = student.Grades.Where(g => g.Subject == subject).ToList();
-                Grade finalGrade = grades.Where(g => g.Period == Period.FINAL).FirstOrDefault();
-                if (finalGrade != null)
-                {
-                    double finalValue = CalculateFinalValue(grades);
-                    finalGrade.Value = finalValue;
-                    _dataBaseContext.SaveChanges();
-                }
-                else
-                {
-                    double finalValue = CalculateFinalValue(grades);
-                    this.Create(studentId, subjectId, Period.FINAL, finalValue);
-                }
+            Student student = _dataBaseContext.Students.Include(s => s.Grades).Where(s => s.Id == studentId).FirstOrDefault();
+            Subject subject = _dataBaseContext.Subjects.Where(s => s.Id == subjectId).FirstOrDefault();
+            var grades = student.Grades.Where(g => g.Subject == subject).ToList();
+            Grade finalGrade = grades.Where(g => g.Period == Period.FINAL).FirstOrDefault();
+            if (finalGrade != null)
+            {
+                double finalValue = CalculateFinalValue(grades);
+                finalGrade.Value = finalValue;
+                _dataBaseContext.SaveChanges();
+            }
+            else
+            {
+                double finalValue = CalculateFinalValue(grades);
+                this.Create(studentId, subjectId, Period.FINAL, finalValue);
+            }
 
             
 

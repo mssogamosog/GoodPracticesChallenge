@@ -61,8 +61,8 @@ namespace TestingGoodPractices
             List<Student> result = new List<Student>
             {
                 new Student {Name =" Student 1", Id = 1 ,Grades = new List<Grade>{ new Grade { Id =1 , Period = Period.FIRST , Subject = SampleSubjects()[0] , Value = 4.5} } },
-                new Student {Name =" Student 2", Id = 2 },
-                new Student {Name =" Student 3", Id = 3 },
+                new Student {Name =" Student 2", Id = 2 , Grades =  SampleGrades()},
+                new Student {Name =" Student 3", Id = 3 ,Grades = new List<Grade>{ SampleGrades()[6] } },
                 new Student {Name =" Student 4", Id = 4 }
             };
             return result;
@@ -79,5 +79,21 @@ namespace TestingGoodPractices
             };
             return output;
         }
+
+        public static List<Grade> SampleGrades()
+        {
+            List<Grade> result = new List<Grade>
+            {
+                new Grade { Id = 1, Period = Period.FIRST, Subject = SampleSubjects()[0], Value = 4.5 },
+                new Grade { Id = 2, Period = Period.SECOND, Subject = SampleSubjects()[0], Value = 8.0 },
+                new Grade { Id = 3, Period = Period.THIRD, Subject = SampleSubjects()[0], Value = 9.0 },
+                new Grade { Id = 4, Period = Period.FINAL, Subject = SampleSubjects()[0], Value = 7.35 },
+                new Grade { Id = 5, Period = Period.FIRST, Subject = SampleSubjects()[1], Value = 4.5 },
+                new Grade { Id = 6, Period = Period.SECOND, Subject = SampleSubjects()[1], Value = 4.5 },
+                new Grade { Id = 7, Period = Period.FINAL , Subject = SampleSubjects()[2] , Value = 4.5}
+            };
+            return result;
+        }
     }
+
 }
