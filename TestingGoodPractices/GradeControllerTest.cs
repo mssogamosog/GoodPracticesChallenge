@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoodPracticesChallenge;
-using Autofac.Extras.Moq;
 using System.Data.Entity;
 using Moq;
 

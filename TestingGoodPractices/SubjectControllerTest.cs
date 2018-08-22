@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GoodPracticesChallenge;
-using Autofac.Extras.Moq;
 using System.Data.Entity;
 using Moq;
 
@@ -22,7 +21,7 @@ namespace TestingGoodPractices
 			var mockMessaging = new Mock<IMessaging>();
 			var mockContext = new Mock<IDataBaseContext>();
 			mockContext.Setup(c => c.Subjects).Returns(mockSet.Object);
-			var cls = new SubjectController(mockContext.Object, mockMessaging.Object);
+			var cls = new SubjectBussines(mockContext.Object, mockMessaging.Object);
 			var expected = SetsForTesting.SampleSubjects();
 			//when
 			var actual = cls.List();
@@ -48,7 +47,7 @@ namespace TestingGoodPractices
 			var mockMessaging = new Mock<IMessaging>();
 			var mockContext = new Mock<IDataBaseContext>();
 			mockContext.Setup(c => c.Subjects).Returns(mockSet.Object);
-			var cls = new SubjectController(mockContext.Object, mockMessaging.Object);
+			var cls = new SubjectBussines(mockContext.Object, mockMessaging.Object);
 			//when
 			cls.Create(subject.Name,subject.Description);
 			//then
@@ -64,7 +63,7 @@ namespace TestingGoodPractices
 			var mockMessaging = new Mock<IMessaging>();
 			var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Courses).Returns(mockSet.Object);
-            var subjectDAO = new SubjectController(mockContext.Object, mockMessaging.Object);
+            var subjectDAO = new SubjectBussines(mockContext.Object, mockMessaging.Object);
             var expected = new List<Subject>
             {
                 (SetsForTesting.SampleSubjects()[0]), 
@@ -94,7 +93,7 @@ namespace TestingGoodPractices
             var mockContext = new Mock<IDataBaseContext>();
             mockContext.Setup(c => c.Courses).Returns(mockSet.Object);
             //mockMessaging.Setup(c => c.DisplayMessage("Id doesn't match"));
-            var subjectDAO = new SubjectController(mockContext.Object, mockMessaging.Object);
+            var subjectDAO = new SubjectBussines(mockContext.Object, mockMessaging.Object);
             //when
             var actual = subjectDAO.GetSubjectsByTeacher(2);
             //then

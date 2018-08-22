@@ -21,7 +21,7 @@ namespace GoodPracticesChallenge
                 var courseController = scope.Resolve<ICourseController>();
                 var foreignLanguageController = scope.Resolve<IForeignLanguageController>();
                 var studentController = scope.Resolve<IStudentController>();
-                var subjectController = scope.Resolve<ISubjectController>();
+                var subjectController = scope.Resolve<ISubjectBussines>();
                 var teacherController = scope.Resolve<ITeacherController>();
                 var dataBaseContext = scope.Resolve<IDataBaseContext>();
                 var gradeBusiness = scope.Resolve<IGradeBusiness>();
@@ -72,7 +72,8 @@ namespace GoodPracticesChallenge
                         "17.Subjects By Teacher\n" +
                         "18. Delete Teacher\n"+
                         "19.Assing Course to Teacher\n"+
-                        "0. EXIT\n\n" +
+						"20. List Languages" +
+						"0. EXIT\n\n" +
                         "########################################");
                     option = Console.ReadLine();
                     Console.Clear();
@@ -261,7 +262,14 @@ namespace GoodPracticesChallenge
                             teacherBusiness.AssingCourse(teacherId, courseId);
                             Console.WriteLine("Press a key to continue....");
                             Console.ReadKey();
-                            break;
+							break;
+						case "20":
+							Console.WriteLine("20.List Languages\n");
+							foreignLanguageController.List();
+							Console.WriteLine("Press a key to continue....");
+							Console.ReadKey();
+							break;
+							
                         default:
                             Console.WriteLine("Ingrese una opcion valida.");
                             Console.WriteLine("Press a key to continue....");

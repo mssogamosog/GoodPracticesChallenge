@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodPracticesChallenge", "G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingGoodPractices", "TestingGoodPractices\TestingGoodPractices.csproj", "{D9FB9738-EF05-47FD-AA38-0F03AE24EDB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodPracticesREST", "GoodPracticesREST\GoodPracticesREST.csproj", "{66A67AF5-6DC9-4B2D-9049-D6E82B739E8F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D9FB9738-EF05-47FD-AA38-0F03AE24EDB4} = {D9FB9738-EF05-47FD-AA38-0F03AE24EDB4}
+		{9CA6C845-A9E6-43E1-B5A7-3DF5019E2136} = {9CA6C845-A9E6-43E1-B5A7-3DF5019E2136}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,10 @@ Global
 		{D9FB9738-EF05-47FD-AA38-0F03AE24EDB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9FB9738-EF05-47FD-AA38-0F03AE24EDB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9FB9738-EF05-47FD-AA38-0F03AE24EDB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A67AF5-6DC9-4B2D-9049-D6E82B739E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A67AF5-6DC9-4B2D-9049-D6E82B739E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A67AF5-6DC9-4B2D-9049-D6E82B739E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A67AF5-6DC9-4B2D-9049-D6E82B739E8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

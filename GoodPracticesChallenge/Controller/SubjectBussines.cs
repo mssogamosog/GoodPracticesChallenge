@@ -7,12 +7,12 @@ using System.Data.Entity;
 
 namespace GoodPracticesChallenge
 {
-	public class SubjectController : ISubjectController
+	public class SubjectBussines : ISubjectBussines
 	{
-		public IDataBaseContext _dataBaseContext;
+		IDataBaseContext _dataBaseContext;
 		IMessaging _messaging;
 
-		public SubjectController(IDataBaseContext dataBaseContext, IMessaging messaging)
+		public SubjectBussines(IDataBaseContext dataBaseContext, IMessaging messaging)
 		{
 			_dataBaseContext = dataBaseContext;
 			_messaging = messaging;
@@ -37,11 +37,17 @@ namespace GoodPracticesChallenge
 				var subjects = _dataBaseContext.Subjects.ToList();
 				foreach (var subject in subjects)
 				{
-					Console.WriteLine(subject.ToString());
+				_messaging.DisplayMessage(subject.ToString());
 				}
 				return subjects;
 			
 
+		}
+		public Subject Get(int subjectId)
+		{
+
+			var foreignLanguage = _dataBaseContext.Subjects.Where(f => f.Id == subjectId).FirstOrDefault();
+			return foreignLanguage;
 		}
 
 		public List<Subject> GetSubjectsByTeacher(int courseId)

@@ -21,7 +21,7 @@ namespace GoodPracticesChallenge
             builder.RegisterType<CourseController>().As<ICourseController>();
             builder.RegisterType<ForeignLanguageController>().As<IForeignLanguageController>();
             builder.RegisterType<StudentController>().As<IStudentController>();
-            builder.RegisterType<SubjectController>().As<ISubjectController>();
+            builder.RegisterType<SubjectBussines>().As<ISubjectBussines>();
             builder.RegisterType<TeacherController>().As<ITeacherController>();
             builder.RegisterType<DataBaseContext>().As<IDataBaseContext>();
 
