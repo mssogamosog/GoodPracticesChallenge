@@ -31,6 +31,40 @@ namespace GoodPracticesChallenge
 
 		}
 
+		public void Update(int subjectId, string name ="", string description="")
+		{
+			Subject subject = Get(subjectId);
+			if (subject != null)
+			{
+				if (name != "")
+				{
+					subject.Name = name;
+				}
+				if (description != "")
+				{
+					subject.Description = description;
+				}
+				_dataBaseContext.SaveChanges();
+			}
+			else
+			{
+				_messaging.DisplayMessage("Subject Not Found");
+			}
+		}
+		public void Delete(int subjectId)
+		{
+			Subject subject = Get(subjectId);
+			if (subject != null)
+			{
+				_dataBaseContext.Subjects.Remove(subject);
+				_dataBaseContext.SaveChanges();
+			}
+			else
+			{
+				_messaging.DisplayMessage("Subject Not Found");
+			}
+		}
+
 		public List<Subject> List()
 		{
 			
@@ -45,10 +79,11 @@ namespace GoodPracticesChallenge
 		}
 		public Subject Get(int subjectId)
 		{
-
-			var foreignLanguage = _dataBaseContext.Subjects.Where(f => f.Id == subjectId).FirstOrDefault();
-			return foreignLanguage;
+			var subject = _dataBaseContext.Subjects.Where(f => f.Id == subjectId).FirstOrDefault();
+			return subject;
 		}
+
+		
 
 		public List<Subject> GetSubjectsByTeacher(int courseId)
 		{

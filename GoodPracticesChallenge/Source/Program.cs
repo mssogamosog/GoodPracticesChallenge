@@ -26,6 +26,8 @@ namespace GoodPracticesChallenge
                 var dataBaseContext = scope.Resolve<IDataBaseContext>();
                 var gradeBusiness = scope.Resolve<IGradeBusiness>();
 
+				//subjectController.Update(1,description:"newsubjectdespcrption",name:"");
+
 				//courseDAO.AddSubjects(1,9);
 				//courseDAO.Create("daam", 2);
 				//courseDAO.AddStudents(14,5);
