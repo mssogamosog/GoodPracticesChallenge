@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoodPracticesChallenge
 {
@@ -49,6 +50,7 @@ namespace GoodPracticesChallenge
 			else
 			{
 				_messaging.DisplayMessage("Subject Not Found");
+				throw new ValidationException("Subject Not Found");
 			}
 		}
 		public void Delete(int subjectId)
@@ -62,20 +64,21 @@ namespace GoodPracticesChallenge
 			else
 			{
 				_messaging.DisplayMessage("Subject Not Found");
+				throw new ValidationException("Subject Not Found");
 			}
+
+			//Delete.Success(){ }
+			//fail(){ }
 		}
 
 		public List<Subject> List()
 		{
-			
 				var subjects = _dataBaseContext.Subjects.ToList();
 				foreach (var subject in subjects)
 				{
 				_messaging.DisplayMessage(subject.ToString());
 				}
 				return subjects;
-			
-
 		}
 		public Subject Get(int subjectId)
 		{

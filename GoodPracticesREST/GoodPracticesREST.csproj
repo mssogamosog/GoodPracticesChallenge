@@ -219,6 +219,7 @@
     </Compile>
     <Compile Include="Models\SubjectApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\RegistDependenciesApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
